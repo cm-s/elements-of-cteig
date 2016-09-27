@@ -19,23 +19,44 @@ function dorand() {
         };
     }, numrand * 10 + 500);
 };
+function animate_sweep(subject) {
+    $(subject).animate({
+        'top': window.scrollY - 31 + 'px',
+        'left': '40%',
+        'height': '96%',
+        'width': '56vw',
+    }, 1000);
+};
+function animate_shrink(subject) {
+    $(subject).animate({
+        'height': '170px',
+        'width': '320px',
+        'margin': '30px auto 30px auto',
+        'top': '0',
+        'left': '0',
+    }, 1000);
+};
 
 $(document).ready(function(event) {
     // Determining the height of the viewport
     viewport_middle = parseInt($('header').css('height'));
     // Ensuring random elements animate
     dorand();
+
     // Add and remove 'pressed' class from clicked .topic-box(es)
     $('.topic-box').click(function() {
-        $(this).css('z-index', '4');
-        $('#shadow').css('display', 'block')
-        $('#shadow').animate({'opacity': '.4'}, 500)
-        $(this).addClass('pressed');
-        setTimeout(function () {
-            $('.topic-box').removeClass('pressed');
-        }, 400);
-        $(this).animate({'margin-bottom': '-' + (viewport_middle - 190 )+ 'px'}, 400 );
-        $(this).css('transform', 'scale(2) translateX(60px)');
-        fov_obscured = true;
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $(this).addClass('reset');
+            animate_shrink(this);
+            $('body').css('overflow-y', 'auto');
+            fov_obscured = false;
+        } else {
+            $(this).removeClass('reset');
+            $(this).addClass('active');
+            animate_sweep(this);
+            $('body').css('overflow-y', 'hidden');
+            fov_obscured = true;
+        };
     });
 });

@@ -1,135 +1,113 @@
 html, body {
-		height: 100%;
-		width: 100%;
-		margin: 0;
-		display: flex;
-}
-
-#shadow {
-		z-index: 3;
-		position: fixed;
-		height: 100%;
-		width: 100%;
-		display: none;
-		background-color: black;
-		opacity: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
 }
 
 main {
-		z-index: 2;
-		width: 40%;
-		height: 1120px;
-		box-shadow: 5px 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 4;
+  width: 40%;
+  height: 3000px;
+  background-color: white;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.3);
 }
 
 main .topic-wrapper {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		align-content: flex-start;
-		min-width: 100%;
-		min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  align-content: flex-start;
+  min-width: 100%;
+  min-height: 220px;
 }
 
 main .topic-wrapper .topic-box {
-		height: 150px;
-		width: 150px;
-		margin: 10px 0 10px 20px;
-		padding: 10px;
-		font: bold normal 1.5rem Arial, sans-serif;
-		color: #777;
-		background-color: #f7f7f7;
-		cursor: pointer;
-		transition: all ease-in-out .3s;
-		box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.19);
+  height: 170px;
+  width: 320px;
+  margin: 30px auto 30px auto;
+  padding: 10px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: bold normal 1.5rem Arial, sans-serif;
+  color: #777;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  transition: all ease-in-out .3s;
+  box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.19);
+}
+
+main .topic-wrapper .topic-box .details {
+  display: none;
+  font: normal normal 1.1rem Arial, sans-serif;
+}
+
+main .topic-wrapper .topic-box .details ul {
+  list-style: none;
+  line-height: 2;
+}
+
+main .topic-wrapper .topic-box.active {
+  overflow-y: auto;
+  display: block;
+  padding: 2%;
+  text-align: left;
+  position: absolute;
+}
+
+main .topic-wrapper .topic-box.active .details {
+  display: block;
+}
+
+main .topic-wrapper .topic-box.reset {
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+main .topic-wrapper .topic-box.reset .details {
+  display: none;
 }
 
 main .topic-wrapper .topic-box:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 6px 10px 3px rgba(0, 0, 0, 0.16);
-}
-
-main .topic-wrapper .topic-box.calling {
-		animation-name: jitter;
-		animation-duration: 450ms;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: 1;
-}
-
-main .topic-wrapper .topic-box.pressed {
-		animation-name: downpress;
-		animation-duration: 320ms;
-		animation-timing-function: ease-in;
-		animation-iteration-count: 1;
-		animation-fill-mode: forwards;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px 3px rgba(0, 0, 0, 0.16);
 }
 
 main .topic-wrapper span {
-		letter-spacing: 1px;
-		margin: auto auto auto 30px;
-		font: normal normal 1rem Arial, sans-serif;
+  letter-spacing: 1px;
+  margin: auto auto auto 30px;
+  font: normal normal 1rem Arial, sans-serif;
 }
 
 header {
-		z-index: 1;
-		position: fixed;
-		height: 100%;
-		width: 60%;
-		margin-left: 40%;
-		text-align: center;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		flex-direction: column;
-		align-items: center;
-		background-image: url("file:images/edu.jpg");
-		background-size: cover;
-		background-position: center;
-		font: normal normal 1.2rem Arial, sans-serif;
+  z-index: 1;
+  position: fixed;
+  height: 100%;
+  width: 60%;
+  margin-left: 40%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("file:images/edu.jpg");
+  background-size: cover;
+  background-position: center;
+  font: normal normal 1.2rem Arial, sans-serif;
 }
 
 header #title-divider {
-		width: 400px;
-		height: 1px;
-		background-color: rgba(68, 68, 68, 0.4);
+  width: 400px;
+  height: 1px;
+  background-color: rgba(68, 68, 68, 0.4);
 }
 
 header footer {
-		font: normal normal 0.6rem Arial, sans-serif;
-		color: #888;
-}
-
-header #backdrop {
-		z-index: 0;
-		position: fixed;
-		min-height: 100%;
-		min-width: 60%;
-		margin-left: 40%;
-}
-
-@keyframes jitter {
-		0% {
-				transform: rotate(5deg);
-		}
-		33% {
-				transform: rotate(-5deg);
-				box-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.2);
-		}
-		50% {
-				transform: rotate(-2deg) scale(1.05);
-		}
-		66% {
-				transform: rotate(5deg);
-				box-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.2);
-		}
-		100% {
-				transform: rotate(-5deg);
-		}
-}
-
-@keyframes downpress {
-		50% {
-				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-				transform: translate(-2px);
-		}
+  font: normal normal 0.6rem Arial, sans-serif;
+  color: #888;
 }
