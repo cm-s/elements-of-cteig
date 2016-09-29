@@ -1,3 +1,20 @@
+@import url(../vendor/mdi/materialdesignicons.css);
+.mdi.mdi-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.mdi.mdi-dark.mdi-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.mdi.mdi-light {
+  color: white;
+}
+
+.mdi.mdi-light.mdi-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
 html, body {
   height: 100%;
   width: 100%;
@@ -8,9 +25,26 @@ html, body {
 main {
   z-index: 4;
   width: 40%;
+  padding-top: 55px;
   height: 3000px;
   background-color: white;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+main nav {
+  position: fixed;
+  height: 55px;
+  width: 40%;
+  transform: translateY(-55px);
+  background-color: white;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  z-index: 5;
+}
+
+main nav i {
+  margin: 0 20px 0 auto;
 }
 
 main .topic-wrapper {
@@ -35,7 +69,7 @@ main .topic-wrapper .topic-box {
   color: #777;
   background-color: #f7f7f7;
   cursor: pointer;
-  transition: all ease-in-out .3s;
+  transition: all ease-in-out 220ms;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.19);
 }
 
@@ -47,6 +81,11 @@ main .topic-wrapper .topic-box .details {
 main .topic-wrapper .topic-box .details ul {
   list-style: none;
   line-height: 2;
+}
+
+main .topic-wrapper .topic-box.calling {
+  transform: translateY(-6px);
+  box-shadow: 0 9px 10px 3px rgba(0, 0, 0, 0.13);
 }
 
 main .topic-wrapper .topic-box.active {
@@ -83,6 +122,37 @@ main .topic-wrapper span {
   font: normal normal 1rem Arial, sans-serif;
 }
 
+#dot-menu-icon {
+  position: fixed;
+  margin: 15px 15px 0 auto;
+  z-index: 2;
+  top: 0;
+  left: 100%;
+  transform: translateX(-35px);
+}
+
+#dot-menu-ripple {
+  position: fixed;
+  height: 35px;
+  width: 35px;
+  position: fixed;
+  margin: 10px 10px 0 auto;
+  z-index: 3;
+  left: 100%;
+  transform: translateX(-41px);
+  background-color: #555;
+  display: none;
+}
+
+#dot-menu {
+  position: fixed;
+  margin: 15px 15px 0 auto;
+  left: 100%;
+  transform: translateX(100%);
+  background-color: white;
+  z-index: 3;
+}
+
 header {
   z-index: 1;
   position: fixed;
@@ -108,6 +178,11 @@ header #title-divider {
 }
 
 header footer {
-  font: normal normal 0.6rem Arial, sans-serif;
+  font: normal normal 0.9rem Arial, sans-serif;
   color: #888;
+}
+
+header footer mark {
+  background-color: transparent;
+  font: normal normal 1.1rem Arial, sans-serif;
 }

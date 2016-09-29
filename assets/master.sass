@@ -1,3 +1,17 @@
+@import "../vendor/mdi/materialdesignicons.css"
+
+//material design dark according to guidelines: http://goo.gl/vkRHaV
+.mdi.mdi-dark
+  color: rgba(0,0,0,0.54)
+.mdi.mdi-dark.mdi-inactive
+  color: rgba(0,0,0,0.26)
+
+//material design light according to guidelines: http://goo.gl/vkRHaV
+.mdi.mdi-light
+  color: rgba(255,255,255,1)
+.mdi.mdi-light.mdi-inactive
+  color: rgba(255,255,255,0.3)
+
 @mixin standard-font($size)
   font: normal normal $size Arial, sans-serif
 
@@ -9,9 +23,22 @@ html, body
 main
   z-index: 4
   width: 40%
+  padding-top: 55px
   height: 3000px
   background-color: white
   box-shadow: 5px 0 5px rgba(0,0,0,0.3)
+  nav
+    position: fixed
+    height: 55px
+    width: 40%
+    transform: translateY(-55px)
+    background-color: white
+    border-bottom: 2px solid rgba(0,0,0,0.12)
+    display: flex
+    align-items: center
+    z-index: 5
+    i
+      margin: 0 20px 0 auto
   .topic-wrapper
     display: flex
     align-items: center
@@ -32,7 +59,7 @@ main
       color: #777
       background-color: darken(white, 3)
       cursor: pointer
-      transition: all ease-in-out .3s
+      transition: all ease-in-out 220ms
       box-shadow: 0 3px 6px 1px rgba(0,0,0,0.19)
       .details
         display: none
@@ -41,6 +68,8 @@ main
           list-style: none
           line-height: 2
       &.calling
+        transform: translateY(-6px)
+        box-shadow: 0 9px 10px 3px rgba(0,0,0,0.13)
       &.active
         overflow-y: auto
         display: block
@@ -63,6 +92,31 @@ main
       letter-spacing: 1px
       margin: auto auto auto 30px
       @include standard-font(1rem)
+#dot-menu-icon
+  position: fixed
+  margin: 15px 15px 0 auto
+  z-index: 2
+  top: 0
+  left: 100%
+  transform: translateX(-35px)
+#dot-menu-ripple
+  position: fixed
+  height: 35px
+  width: 35px
+  position: fixed
+  margin: 10px 10px 0 auto
+  z-index: 3
+  left: 100%
+  transform: translateX(-41px)
+  background-color: #555
+  display: none
+#dot-menu
+  position: fixed
+  margin: 15px 15px 0 auto
+  left: 100%
+  transform: translateX(100%)
+  background-color: white
+  z-index: 3
 header
   z-index: 1
   position: fixed
@@ -79,14 +133,13 @@ header
   background-size: cover
   background-position: center
   @include standard-font(1.2rem)
-  #header
-
-  #sub-header
-
   #title-divider
     width: 400px
     height: 1px
     background-color: transparentize(#444, .6)
   footer
-    @include standard-font(.6rem)
+    @include standard-font(.9rem)
     color: #888
+    mark
+      background-color: transparent
+      @include standard-font(1.1rem)

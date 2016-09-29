@@ -1,6 +1,6 @@
 var numrand = 0;
-var viewport_middle = 0;
 var fov_obscured = false;
+var navIsScrolled = false;
 
 function dorand() {
     // Removing animation class from old animated element
@@ -26,6 +26,9 @@ function animate_sweep(subject) {
         'height': '96%',
         'width': '56vw',
     }, 1000);
+    setTimeout(function () {
+        $(subject).css('box-shadow', 'inset 20px -12px 5px -12px rgba(0,0,0,0.3)');
+    }, 1100);
 };
 function animate_shrink(subject) {
     $(subject).animate({
@@ -36,22 +39,59 @@ function animate_shrink(subject) {
         'left': '0',
     }, 1000);
 };
+function animate_rise(subject) {
+    $(subject).css('box-shadow', '0 1px 1px rgba(0,0,0,0.11)');
+    setTimeout(function () {
+        $(subject).css('box-shadow', '0 2px 2px rgba(0,0,0,0.12)');
+        setTimeout(function () {
+            $(subject).css('box-shadow', '0 3px 3px rgba(0,0,0,0.13)');
+            setTimeout(function () {
+                $(subject).css('box-shadow', '0 4px 4px rgba(0,0,0,0.14)');
+                setTimeout(function () {
+                    $(subject).css('box-shadow', '0 5px 5px rgba(0,0,0,0.15)');
+                    setTimeout(function () {
+                        $(subject).css('box-shadow', '0 6px 6px rgba(0,0,0,0.16)');
+                    }, 200);
+                }, 150);
+            }, 110);
+        }, 90);
+    }, 50);
+}
+function animate_fall(subject) {
+    $(subject).css('box-shadow', '0 5px 5px rgba(0,0,0,0.15)');
+    setTimeout(function () {
+        $(subject).css('box-shadow', '0 4px 4px rgba(0,0,0,0.14)');
+        setTimeout(function () {
+            $(subject).css('box-shadow', '0 3px 3px rgba(0,0,0,0.13)');
+            setTimeout(function () {
+                $(subject).css('box-shadow', '0 2px 2px rgba(0,0,0,0.12)');
+                setTimeout(function () {
+                    $(subject).css('box-shadow', '0 1px 1px rgba(0,0,0,0.11)');
+                    setTimeout(function () {
+                        $(subject).css('box-shadow', 'none');
+                    }, 200);
+                }, 160);
+            }, 140);
+        }, 100);
+    }, 50);
+}
 
 $(document).ready(function(event) {
-    // Determining the height of the viewport
-    viewport_middle = parseInt($('header').css('height'));
     // Ensuring random elements animate
     dorand();
+    $(document).on('scroll', function() {
+        if (!navIsScrolled && (window.scrollY > 0)) {
+            animate_rise('nav');
+            navIsScrolled = true;
+        } else if (navIsScrolled && (window.scrollY <= 0)) {
+            animate_fall('nav');
+            navIsScrolled = false;
+        };
+    });
 
     // Add and remove 'pressed' class from clicked .topic-box(es)
     $('.topic-box').click(function() {
-        if ($(this).hasClass('active')) {
-            $(this).removeClass('active');
-            $(this).addClass('reset');
-            animate_shrink(this);
-            $('body').css('overflow-y', 'auto');
-            fov_obscured = false;
-        } else {
+        if (!fov_obscured) {
             $(this).removeClass('reset');
             $(this).addClass('active');
             animate_sweep(this);
@@ -59,4 +99,5 @@ $(document).ready(function(event) {
             fov_obscured = true;
         };
     });
+
 });
