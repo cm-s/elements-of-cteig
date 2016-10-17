@@ -1,6 +1,7 @@
 var numrand = 0;
 var fov_obscured = false;
 var navIsScrolled = false;
+var animated_last = {};
 
 function dorand() {
     // Removing animation class from old animated element
@@ -75,7 +76,6 @@ function animate_fall(subject) {
         }, 100);
     }, 50);
 }
-
 $(document).ready(function(event) {
     // Ensuring random elements animate
     dorand();
@@ -90,7 +90,7 @@ $(document).ready(function(event) {
     });
 
     // Add and remove 'pressed' class from clicked .topic-box(es)
-    $('.topic-box').click(function() {
+    $('.topic-box').click(function(event) {
         if (!fov_obscured) {
             $(this).removeClass('reset');
             $(this).addClass('active');
@@ -98,6 +98,12 @@ $(document).ready(function(event) {
             $('body').css('overflow-y', 'hidden');
             fov_obscured = true;
         };
+        event.stopPropagation(); // Not working
     });
-
+    $('button').click(function () {
+        $('.topic-box').removeClass('active').addClass('reset');
+        animate_shrink('.topic-box');
+        $('body').css('overflow-y', 'shown');
+        fov_obscured = false;
+    });
 });

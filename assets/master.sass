@@ -52,15 +52,36 @@ main
       margin: 30px auto 30px auto
       padding: 10px
       border-radius: 3px
+      position: relative
       display: flex
       justify-content: center
       align-items: center
+      text-align: center
       font: bold normal 1.5rem Arial, sans-serif
       color: #777
       background-color: darken(white, 3)
       cursor: pointer
       transition: all ease-in-out 220ms
       box-shadow: 0 3px 6px 1px rgba(0,0,0,0.19)
+      button
+        padding: 8px 12px 8px 12px
+        transform: rotateX(90deg)
+        perspective: -500px
+        perspective-origin: left
+        transform-origin: top
+        position: absolute
+        top: 0
+        left: 85%
+        border-bottom-left-radius: 4px
+        border-bottom-right-radius: 4px
+        border: none
+        font: normal normal 1.15rem 'Arial', sans-serif
+        color: white
+        box-shadow: 0 0 3px 4px rgba(0,0,0,0.12)
+        background-color: mix(darken(red, 30), brown, 20)
+      &:hover
+        transform: translateY(-5px)
+        box-shadow: 0 12px 12px -3px rgba(0,0,0,0.16)
       .details
         display: none
         @include standard-font(1.1rem)
@@ -78,6 +99,15 @@ main
         position: absolute
         .details
           display: block
+        &:hover
+          transform: none
+        & > button
+          animation-name: flip
+          animation-duration: 300ms
+          animation-fill-mode: forwards
+          animation-delay: 1.6s
+          animation-timing-function: ease-in-out
+          animation-iteration-count: 1
       &.reset
         overflow-y: hidden
         display: flex
@@ -85,9 +115,8 @@ main
         position: relative
         .details
           display: none
-      &:hover
-        transform: translateY(-5px)
-        box-shadow: 0 6px 10px 3px rgba(0,0,0,0.16)
+        & > button
+          animation: none
     span
       letter-spacing: 1px
       margin: auto auto auto 30px
@@ -143,3 +172,10 @@ header
     mark
       background-color: transparent
       @include standard-font(1.1rem)
+@keyframes flip
+  75%
+    transform: rotateX(-30deg)
+  82%
+    transform: rotateX(-30deg)
+  100%
+    transform: rotateX(0)
