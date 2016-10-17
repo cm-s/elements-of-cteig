@@ -22,6 +22,10 @@ html, body {
   display: flex;
 }
 
+html .no_scroll, body .no_scroll {
+  overflow-y: hidden;
+}
+
 main {
   z-index: 4;
   width: 40%;
@@ -143,6 +147,7 @@ main .topic-wrapper .topic-box.reset {
   display: flex;
   justify-content: center;
   position: relative;
+  box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.19);
 }
 
 main .topic-wrapper .topic-box.reset .details {

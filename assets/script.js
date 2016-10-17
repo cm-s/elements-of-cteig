@@ -1,5 +1,4 @@
 var numrand = 0;
-var fov_obscured = false;
 var navIsScrolled = false;
 var animated_last = {};
 
@@ -20,7 +19,13 @@ function dorand() {
         };
     }, numrand * 10 + 500);
 };
+function clear_styles(subject) {
+    // Function to clear all animated styles from the object.
+    // Setting them to '' removes them automatically.
+    $(subject).css('top', '').css('left', '').css('height', '').css('width', '').css('margin', '').css('box-shadow', '');
+};
 function animate_sweep(subject) {
+    clear_styles(subject);
     $(subject).animate({
         'top': window.scrollY - 31 + 'px',
         'left': '40%',
@@ -32,6 +37,7 @@ function animate_sweep(subject) {
     }, 1100);
 };
 function animate_shrink(subject) {
+    $(subject).css('box-shadow', 'none');
     $(subject).animate({
         'height': '170px',
         'width': '320px',
@@ -39,6 +45,9 @@ function animate_shrink(subject) {
         'top': '0',
         'left': '0',
     }, 1000);
+    setTimeout(function () {
+        clear_styles(subject);
+    }, 1001);
 };
 function animate_rise(subject) {
     $(subject).css('box-shadow', '0 1px 1px rgba(0,0,0,0.11)');
@@ -90,20 +99,15 @@ $(document).ready(function(event) {
     });
 
     // Add and remove 'pressed' class from clicked .topic-box(es)
-    $('.topic-box').click(function(event) {
-        if (!fov_obscured) {
-            $(this).removeClass('reset');
-            $(this).addClass('active');
-            animate_sweep(this);
-            $('body').css('overflow-y', 'hidden');
-            fov_obscured = true;
-        };
-        event.stopPropagation(); // Not working
+    $('.topic-box').click(function() {
+        $(this).removeClass('reset').addClass('active');
+        animate_sweep(this);
+        $('body').addClass('no_scroll');
     });
-    $('button').click(function () {
+    $('button').click(function (event) {
         $('.topic-box').removeClass('active').addClass('reset');
         animate_shrink('.topic-box');
-        $('body').css('overflow-y', 'shown');
-        fov_obscured = false;
+        $('body').removeClass('no_scroll');
+        event.stopPropagation();
     });
 });
