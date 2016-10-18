@@ -28,7 +28,7 @@ main
   z-index: 4
   width: 40%
   padding-top: 55px
-  height: 3000px
+  height: 2840px
   background-color: white
   box-shadow: 5px 0 5px rgba(0,0,0,0.3)
   nav
@@ -67,6 +67,62 @@ main
       cursor: pointer
       transition: all ease-in-out 220ms
       box-shadow: 0 3px 6px 1px rgba(0,0,0,0.19)
+      .details
+        @include standard-font(1.1rem)
+        ul.primary
+          list-style: none
+          line-height: 2
+          padding: 0
+          li
+            display: flex
+            flex-flow: column nowrap
+            height: 90px
+            &.small
+              height: 50px
+            div.topic
+              position: absolute
+              margin-left: 55px
+              padding-top: 2px
+              ul
+                list-style: disc
+                padding-left: 30px
+                li
+                  height: auto
+          label
+            position: relative
+            cursor: pointer
+            width: 50px
+            padding-top: 5px
+            display: flex
+            align-items: center
+            span
+              margin: -5px 0 0 10px
+            .checkbox-ripple
+              position: absolute
+              height: 40px
+              width: 40px
+              border-radius: 50%
+              background-color: #666
+              opacity: 0
+              top: -2px
+              left: -7px
+              transform-origin: center
+            .checked
+              display: none
+            .unchecked
+              display: block
+            input[type='checkbox']
+              display: none
+              &:checked + .unchecked
+                display: none
+                + .checked
+                  display: block
+                  + .checkbox-ripple
+                    animation-name: ripple
+                    animation-duration: 350ms
+                    animation-fill-mode: none
+                    animation-timing-function: ease-in-out
+                    animation-iteration-count: 1
       button
         padding: 8px 12px 8px 12px
         transform: rotateX(90deg)
@@ -88,10 +144,6 @@ main
         box-shadow: 0 12px 12px -3px rgba(0,0,0,0.16)
       .details
         display: none
-        @include standard-font(1.1rem)
-        ul
-          list-style: none
-          line-height: 2
       &.calling
         transform: translateY(-6px)
         box-shadow: 0 9px 10px 3px rgba(0,0,0,0.13)
@@ -184,3 +236,12 @@ header
     transform: rotateX(-30deg)
   100%
     transform: rotateX(0)
+@keyframes ripple
+  0%
+    transform: scale(0)
+  70%
+    opacity: .6
+    transform: scale(1)
+  100%
+    opacity: 0
+    transform: scale(1)

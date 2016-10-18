@@ -1,6 +1,7 @@
 var numrand = 0;
 var navIsScrolled = false;
 var animated_last = {};
+var card_out = false;
 
 function dorand() {
     // Removing animation class from old animated element
@@ -14,7 +15,7 @@ function dorand() {
 
     // Recursing the function
     setTimeout(function () {
-        if (!fov_obscured) {
+        if (!card_out) {
             dorand();
         };
     }, numrand * 10 + 500);
@@ -100,14 +101,18 @@ $(document).ready(function(event) {
 
     // Add and remove 'pressed' class from clicked .topic-box(es)
     $('.topic-box').click(function() {
-        $(this).removeClass('reset').addClass('active');
-        animate_sweep(this);
-        $('body').addClass('no_scroll');
+        if (!card_out) {
+            $(this).removeClass('reset').addClass('active');
+            animate_sweep(this);
+            $('body').addClass('no_scroll');
+            card_out = true;
+        };
     });
     $('button').click(function (event) {
         $('.topic-box').removeClass('active').addClass('reset');
         animate_shrink('.topic-box');
         $('body').removeClass('no_scroll');
+        card_out = false;
         event.stopPropagation();
     });
 });

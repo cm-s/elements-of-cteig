@@ -30,7 +30,7 @@ main {
   z-index: 4;
   width: 40%;
   padding-top: 55px;
-  height: 3000px;
+  height: 2840px;
   background-color: white;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -79,6 +79,94 @@ main .topic-wrapper .topic-box {
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.19);
 }
 
+main .topic-wrapper .topic-box .details {
+  font: normal normal 1.1rem Arial, sans-serif;
+}
+
+main .topic-wrapper .topic-box .details ul.primary {
+  list-style: none;
+  line-height: 2;
+  padding: 0;
+}
+
+main .topic-wrapper .topic-box .details ul.primary li {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 90px;
+}
+
+main .topic-wrapper .topic-box .details ul.primary li.small {
+  height: 50px;
+}
+
+main .topic-wrapper .topic-box .details ul.primary li div.topic {
+  position: absolute;
+  margin-left: 55px;
+  padding-top: 2px;
+}
+
+main .topic-wrapper .topic-box .details ul.primary li div.topic ul {
+  list-style: disc;
+  padding-left: 30px;
+}
+
+main .topic-wrapper .topic-box .details ul.primary li div.topic ul li {
+  height: auto;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label {
+  position: relative;
+  cursor: pointer;
+  width: 50px;
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label span {
+  margin: -5px 0 0 10px;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label .checkbox-ripple {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #666;
+  opacity: 0;
+  top: -2px;
+  left: -7px;
+  transform-origin: center;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label .checked {
+  display: none;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label .unchecked {
+  display: block;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox'] {
+  display: none;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox']:checked + .unchecked {
+  display: none;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox']:checked + .unchecked + .checked {
+  display: block;
+}
+
+main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox']:checked + .unchecked + .checked + .checkbox-ripple {
+  animation-name: ripple;
+  animation-duration: 350ms;
+  animation-fill-mode: none;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+}
+
 main .topic-wrapper .topic-box button {
   padding: 8px 12px 8px 12px;
   transform: rotateX(90deg);
@@ -104,12 +192,6 @@ main .topic-wrapper .topic-box:hover {
 
 main .topic-wrapper .topic-box .details {
   display: none;
-  font: normal normal 1.1rem Arial, sans-serif;
-}
-
-main .topic-wrapper .topic-box .details ul {
-  list-style: none;
-  line-height: 2;
 }
 
 main .topic-wrapper .topic-box.calling {
@@ -238,5 +320,19 @@ header footer mark {
   }
   100% {
     transform: rotateX(0);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    opacity: .6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
   }
 }
