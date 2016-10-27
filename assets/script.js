@@ -98,6 +98,9 @@ $(document).ready(function(event) {
             navIsScrolled = false;
         };
     });
+    $('#search-field').keyup(function() {
+        
+    });
 
     // Add and remove 'pressed' class from clicked .topic-box(es)
     $('.topic-box').click(function() {

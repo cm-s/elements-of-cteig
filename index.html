@@ -10,12 +10,18 @@
   <body>
     <main>
       <nav>
-
-        <i class="mdi mdi-magnify mdi-24px mdi-dark"></i>
+        <div id="dot-menu-container">
+          <i class="mdi mdi-dots-vertical mdi-24px mdi-dark" id="dot-menu-icon"></i>
+          <span id="dot-menu-ripple"></span>
+        </div>
+        <div id="search-bar">
+          <i class="mdi mdi-magnify mdi-24px mdi-dark"></i>
+          <input type="search" name="searchbar" placeholder="Search the elements" id="search-field">
+        </div>
       </nav>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           Leadership At All Levels
           <div class="details">
             <ul class="primary">
@@ -83,7 +89,7 @@ Activities</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           High-Quality Curriculum
           And Instruction
           <div class="details">
@@ -260,7 +266,7 @@ Agreements</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           Career Explorations
           And Guidance
           <div class="details">
@@ -319,7 +325,7 @@ Year Plan</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           Student Support and Student Leadership Development cont.
           <div class="details">
             <ul class="primary">
@@ -461,7 +467,7 @@ Services</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           Industry Partnerships
           <div class="details">
             <ul class="primary">
@@ -584,7 +590,7 @@ Receiving Certification</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           System Alignment and Coherence
           <div class="details">
             <ul class="primary">
@@ -662,7 +668,7 @@ Sequence</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           Effective Organizational Design
           <div class="details">
             <ul class="primary">
@@ -741,7 +747,7 @@ Students</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           System Responsiveness to Changing Economic Demands
           <div class="details">
             <ul class="primary">
@@ -818,7 +824,7 @@ Minutes/Agendas</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           Skilled Faculty and Professional Development
           <div class="details">
             <ul class="primary">
@@ -911,7 +917,7 @@ Training, Etc.</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           Evaluation, Accountability, and Continuous Improvement
           <div class="details">
             <ul class="primary">
@@ -1097,7 +1103,7 @@ Representative</li>
       </div>
       <div class="topic-wrapper">
         <div class="topic-box">
-          <button type="button" name="close" onclick="close()">Close</button>
+          <button type="button" name="close" >Close</button>
           CTE Promotion, Outreach, Marketing, and Communication
           <div class="details">
             <ul class="primary">
@@ -1150,8 +1156,6 @@ School Meetings</li>
         </div>
       </div>
     </main>
-    <i class="mdi mdi-dots-vertical mdi-24px mdi-dark" id="dot-menu-icon"></i>
-    <span id="dot-menu-ripple"></span>
     <div id="dot-menu">
       <ul>
         <li>View as PDF</li>

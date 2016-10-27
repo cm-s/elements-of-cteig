@@ -41,8 +41,28 @@ main
     display: flex
     align-items: center
     z-index: 5
-    i
-      margin: 0 20px 0 auto
+    #dot-menu-container
+      margin: 0 auto 0 20px
+      overflow: visible
+      #dot-menu-ripple
+        height: 45px
+        width: 45px
+    #search-bar
+      margin: 0 auto 0 12px
+      height: 37px
+      width: 90%
+      background-color: transparentize(#999, .8)
+      border-radius: 8px
+      i
+        margin: auto auto auto 10px
+      input
+        width: 90%
+        height: 90%
+        background-color: transparent
+        border: none
+        outline: none
+        box-shadow: none
+
   .topic-wrapper
     display: flex
     align-items: center
@@ -178,31 +198,6 @@ main
       letter-spacing: 1px
       margin: auto auto auto 30px
       @include standard-font(1rem)
-#dot-menu-icon
-  position: fixed
-  margin: 15px 15px 0 auto
-  z-index: 2
-  top: 0
-  left: 100%
-  transform: translateX(-35px)
-#dot-menu-ripple
-  position: fixed
-  height: 35px
-  width: 35px
-  position: fixed
-  margin: 10px 10px 0 auto
-  z-index: 3
-  left: 100%
-  transform: translateX(-41px)
-  background-color: #555
-  display: none
-#dot-menu
-  position: fixed
-  margin: 15px 15px 0 auto
-  left: 100%
-  transform: translateX(100%)
-  background-color: white
-  z-index: 3
 header
   z-index: 1
   position: fixed
