@@ -27,7 +27,6 @@ html, body
 main
   z-index: 4
   width: 40%
-  padding-top: 55px
   height: 2840px
   background-color: white
   box-shadow: 5px 0 5px rgba(0,0,0,0.3)
@@ -35,7 +34,6 @@ main
     position: fixed
     height: 55px
     width: 40%
-    transform: translateY(-55px)
     background-color: white
     border-bottom: 2px solid rgba(0,0,0,0.12)
     display: flex
@@ -48,21 +46,28 @@ main
         height: 45px
         width: 45px
     #search-bar
-      margin: 0 auto 0 12px
+      position: relative
+      margin: 0 17px 0 12px
       height: 37px
-      width: 90%
+      padding-left: 35px
+      width: calc(87% - 35px)
       background-color: transparentize(#999, .8)
       border-radius: 8px
       i
-        margin: auto auto auto 10px
+        margin: 7px auto auto -27px
+        position: absolute
       input
-        width: 90%
+        width: 98%
         height: 90%
+        margin-top: 2px
         background-color: transparent
         border: none
         outline: none
         box-shadow: none
-
+      &.active
+        border-bottom-left-radius: 0
+        border-bottom-right-radius: 0
+        border-bottom: 1px solid rgba(0,0,0,0.3)
   .topic-wrapper
     display: flex
     align-items: center
@@ -70,6 +75,8 @@ main
     align-content: flex-start
     min-width: 100%
     min-height: 220px
+    &:nth-of-type(1)
+      padding-top: 55px
     .topic-box
       height: 170px
       width: 320px

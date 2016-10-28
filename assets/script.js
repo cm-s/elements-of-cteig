@@ -3,6 +3,35 @@ var navIsScrolled = false;
 var animated_last = {};
 var card_out = false;
 
+class seeker {
+    constructor() {
+        this.titles = [
+            ['Leadership At All Levels', 0],
+            ['High-Quality Curriculum And Instruction', 0],
+            ['Career Explorations And Guidance', 0],
+            ['Student Support and Student Leadership Development', 0],
+            ['Industry Partnerships', 0],
+            ['System Alignment and Coherence', 0],
+            ['Effective Organizational Design', 0],
+            ['System Responsiveness to Changing Economic Demands', 0],
+            ['Skilled Faculty and Professional Development', 0],
+            ['Evaluation, Accountability, and Continuous Improvement', 0],
+            ['CTE Promotion, Outreach, Marketing, and Communication', 0]
+        ];
+    };
+    // highlightor is the thing being highligted in the candidate
+    highlight_filter(candidate, highlightor) {
+        console.log(candidate.indexOf(highlightor));
+    };
+    search(text) {
+        for (let i = 0; i < this.titles.length; i++) {
+            if (this.titles[i][0].indexOf(text) != -1) {
+                $('search-bar').append('<div class="serach-result">' + String(this.highlight_filter(this.titles[i][0], text)) + '</div>');
+            };
+        };
+    };
+};
+
 function dorand() {
     // Removing animation class from old animated element
     $('.topic-wrapper:nth-child(' + numrand + ') .topic-box').removeClass('calling');
@@ -89,6 +118,9 @@ function animate_fall(subject) {
 $(document).ready(function(event) {
     // Ensuring random elements animate
     dorand();
+    // Activating search
+    var searcher = new seeker();
+
     $(document).on('scroll', function() {
         if (!navIsScrolled && (window.scrollY > 0)) {
             animate_rise('nav');
@@ -98,9 +130,17 @@ $(document).ready(function(event) {
             navIsScrolled = false;
         };
     });
-    $('#search-field').keyup(function() {
-        
+    $('#search-bar').click(function(event) {
+        $('#search-field').keyup(function() {
+            searcher.search($(this).val());
+        });
+        $(this).addClass('active');
+        event.stopPropagation();
+        $('html').click(function() {
+            $('#search-bar').removeClass('active');
+        });
     });
+    $('')
 
     // Add and remove 'pressed' class from clicked .topic-box(es)
     $('.topic-box').click(function() {
