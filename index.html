@@ -12,15 +12,21 @@
       <nav>
         <div id="dot-menu-container">
           <i class="mdi mdi-dots-vertical mdi-24px mdi-dark" id="dot-menu-icon"></i>
-          <span id="dot-menu-ripple"></span>
+          <span class="ripple"></span>
+            <ul id="dot-menu">
+              <li id="view-pdf-link"><i class="mdi mdi-file-pdf-box mdi-dark mdi-24px"></i>View as PDF</li>
+              <li><i class="mdi mdi-cloud-download mdi-dark mdi-24px"></i>Download PDF</li>
+              <li>Credits</li>
+            </ul>
         </div>
         <div id="search-bar">
+          <span class="ripple"></span>
           <i class="mdi mdi-magnify mdi-24px mdi-dark"></i>
-          <input type="search" name="searchbar" placeholder="Search the elements" id="search-field">
+          <input type="search" name="searchbar" placeholder="Search the elements" id="search-field" autocomplete="off">
         </div>
       </nav>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="1">
           <button type="button" name="close" >Close</button>
           Leadership At All Levels
           <div class="details">
@@ -88,7 +94,7 @@ Activities</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="2">
           <button type="button" name="close" >Close</button>
           High-Quality Curriculum And Instruction
           <div class="details">
@@ -264,7 +270,7 @@ Agreements</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="3">
           <button type="button" name="close" >Close</button>
           Career Explorations And Guidance
           <div class="details">
@@ -322,7 +328,7 @@ Year Plan</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="4">
           <button type="button" name="close" >Close</button>
           Student Support and Student Leadership Development
           <div class="details">
@@ -464,7 +470,7 @@ Services</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="5">
           <button type="button" name="close" >Close</button>
           Industry Partnerships
           <div class="details">
@@ -587,7 +593,7 @@ Receiving Certification</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="6">
           <button type="button" name="close" >Close</button>
           System Alignment and Coherence
           <div class="details">
@@ -665,7 +671,7 @@ Sequence</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="7">
           <button type="button" name="close" >Close</button>
           Effective Organizational Design
           <div class="details">
@@ -744,7 +750,7 @@ Students</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="8">
           <button type="button" name="close" >Close</button>
           System Responsiveness to Changing Economic Demands
           <div class="details">
@@ -821,7 +827,7 @@ Minutes/Agendas</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="9">
           <button type="button" name="close" >Close</button>
           Skilled Faculty and Professional Development
           <div class="details">
@@ -914,7 +920,7 @@ Training, Etc.</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="10">
           <button type="button" name="close" >Close</button>
           Evaluation, Accountability, and Continuous Improvement
           <div class="details">
@@ -1100,7 +1106,7 @@ Representative</li>
         </div>
       </div>
       <div class="topic-wrapper">
-        <div class="topic-box">
+        <div class="topic-box" id="11">
           <button type="button" name="close" >Close</button>
           CTE Promotion, Outreach, Marketing, and Communication
           <div class="details">
@@ -1154,13 +1160,6 @@ School Meetings</li>
         </div>
       </div>
     </main>
-    <div id="dot-menu">
-      <ul>
-        <li>View as PDF</li>
-        <li>Download PDF</li>
-        <li>Credits</li>
-      </ul>
-    </div>
     <header>
       <p id="header">
         Career Technical Education (CTE)<br>

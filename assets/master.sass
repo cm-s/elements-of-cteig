@@ -1,6 +1,11 @@
 @import "../vendor/mdi/materialdesignicons.css"
 
 //material design dark according to guidelines: http://goo.gl/vkRHaV
+@mixin standard-font($size)
+  font: normal normal $size Arial, sans-serif
+
+$search-bar-border: rgba(0,0,0,0.3)
+
 .mdi.mdi-dark
   color: rgba(0,0,0,0.54)
 .mdi.mdi-dark.mdi-inactive
@@ -12,18 +17,25 @@
 .mdi.mdi-light.mdi-inactive
   color: rgba(255,255,255,0.3)
 
-@mixin standard-font($size)
-  font: normal normal $size Arial, sans-serif
-
+.ripple
+  height: 160px
+  width: 160px
+  position: absolute
+  border-radius: 50%
+  background-color: transparentize(#888, .5)
+  transform: scale(0)
+  transform-origin: center
+  &.active
+    animation: element-ripple 200ms ease-in-out 1
+.no_scroll
+  // This class exists because overriding the equivalent property
+  // in JavaScript was problematic
+  overflow-y: hidden
 html, body
   height: 100%
   width: 100%
   margin: 0
   display: flex
-  .no_scroll
-    // This class exists because overriding the equivalent property
-    // in JavaScript was problematic
-    overflow-y: hidden
 main
   z-index: 4
   width: 40%
@@ -40,19 +52,51 @@ main
     align-items: center
     z-index: 5
     #dot-menu-container
+      position: relative
+      height: 45px
+      width: 45px
+      display: flex
+      align-items: center
+      justify-content: center
+      overflow: hidden
+      border-radius: 50%
       margin: 0 auto 0 20px
-      overflow: visible
-      #dot-menu-ripple
-        height: 45px
-        width: 45px
+      &.active
+        overflow: visible
+      ul#dot-menu
+        position: absolute
+        z-index: 7
+        list-style: none
+        border-radius: 3px
+        padding: 0
+        margin: 0
+        top: 5px
+        left: 5px
+        background-color: white
+        box-shadow: 0 5px 20px 3px rgba(0,0,0,0.2)
+        font: normal lighter .9rem 'Helvetica', sans-serif
+        transform: scale(0)
+        transition: all ease-in-out 200ms
+        transform-origin: left
+        &.active
+          transform: scale(1)
+        li
+          padding: 10px 7px 10px 7px
+          min-width: 170px
+          i
+            transform: translateY(5px)
+            margin: auto 10px auto 5px
+            &::before
+              transform: translateY(4px)
     #search-bar
       position: relative
       margin: 0 17px 0 12px
       height: 37px
       padding-left: 35px
       width: calc(87% - 35px)
-      background-color: transparentize(#999, .8)
+      background-color: #ebebeb
       border-radius: 8px
+      transition: all ease-in-out 200ms
       i
         margin: 7px auto auto -27px
         position: absolute
@@ -65,9 +109,20 @@ main
         outline: none
         box-shadow: none
       &.active
-        border-bottom-left-radius: 0
-        border-bottom-right-radius: 0
-        border-bottom: 1px solid rgba(0,0,0,0.3)
+        box-shadow: 0 0 3px 3px rgba(0,0,0,0.25)
+      .search-result
+        cursor: pointer
+        height: calc(100% - 18px)
+        width: 100%
+        background-color: #ebebeb
+        padding: 9px 0 9px 35px
+        font: normal normal 1rem 'Arial', sans-serif
+        border-top: 1px solid $search-bar-border
+        box-shadow: 3px 3px 3px rgba(0,0,0,0.25), -3px 3px 3px rgba(0,0,0,0.25)
+        transform: translate(-35px, 3px)
+        &:nth-last-of-type(1)
+          border-bottom-left-radius: 8px
+          border-bottom-right-radius: 8px
   .topic-wrapper
     display: flex
     align-items: center
@@ -110,6 +165,7 @@ main
               position: absolute
               margin-left: 55px
               padding-top: 2px
+              max-width: 97%
               ul
                 list-style: disc
                 padding-left: 30px
@@ -238,7 +294,7 @@ header
     transform: rotateX(-30deg)
   100%
     transform: rotateX(0)
-@keyframes ripple
+@keyframes checkbox-ripple
   0%
     transform: scale(0)
   70%
@@ -246,4 +302,7 @@ header
     transform: scale(1)
   100%
     opacity: 0
+    transform: scale(1)
+@keyframes element-ripple
+  100%
     transform: scale(1)

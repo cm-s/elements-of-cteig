@@ -15,15 +15,29 @@
   color: rgba(255, 255, 255, 0.3);
 }
 
+.ripple {
+  height: 160px;
+  width: 160px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(136, 136, 136, 0.5);
+  transform: scale(0);
+  transform-origin: center;
+}
+
+.ripple.active {
+  animation: element-ripple 200ms ease-in-out 1;
+}
+
+.no_scroll {
+  overflow-y: hidden;
+}
+
 html, body {
   height: 100%;
   width: 100%;
   margin: 0;
   display: flex;
-}
-
-html .no_scroll, body .no_scroll {
-  overflow-y: hidden;
 }
 
 main {
@@ -46,13 +60,54 @@ main nav {
 }
 
 main nav #dot-menu-container {
+  position: relative;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
   margin: 0 auto 0 20px;
+}
+
+main nav #dot-menu-container.active {
   overflow: visible;
 }
 
-main nav #dot-menu-container #dot-menu-ripple {
-  height: 45px;
-  width: 45px;
+main nav #dot-menu-container ul#dot-menu {
+  position: absolute;
+  z-index: 7;
+  list-style: none;
+  border-radius: 3px;
+  padding: 0;
+  margin: 0;
+  top: 5px;
+  left: 5px;
+  background-color: white;
+  box-shadow: 0 5px 20px 3px rgba(0, 0, 0, 0.2);
+  font: normal lighter .9rem 'Helvetica', sans-serif;
+  transform: scale(0);
+  transition: all ease-in-out 200ms;
+  transform-origin: left;
+}
+
+main nav #dot-menu-container ul#dot-menu.active {
+  transform: scale(1);
+}
+
+main nav #dot-menu-container ul#dot-menu li {
+  padding: 10px 7px 10px 7px;
+  min-width: 170px;
+}
+
+main nav #dot-menu-container ul#dot-menu li i {
+  transform: translateY(5px);
+  margin: auto 10px auto 5px;
+}
+
+main nav #dot-menu-container ul#dot-menu li i::before {
+  transform: translateY(4px);
 }
 
 main nav #search-bar {
@@ -61,8 +116,9 @@ main nav #search-bar {
   height: 37px;
   padding-left: 35px;
   width: calc(87% - 35px);
-  background-color: rgba(153, 153, 153, 0.2);
+  background-color: #ebebeb;
   border-radius: 8px;
+  transition: all ease-in-out 200ms;
 }
 
 main nav #search-bar i {
@@ -81,9 +137,24 @@ main nav #search-bar input {
 }
 
 main nav #search-bar.active {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+main nav #search-bar .search-result {
+  cursor: pointer;
+  height: calc(100% - 18px);
+  width: 100%;
+  background-color: #ebebeb;
+  padding: 9px 0 9px 35px;
+  font: normal normal 1rem 'Arial', sans-serif;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25), -3px 3px 3px rgba(0, 0, 0, 0.25);
+  transform: translate(-35px, 3px);
+}
+
+main nav #search-bar .search-result:nth-last-of-type(1) {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 main .topic-wrapper {
@@ -142,6 +213,7 @@ main .topic-wrapper .topic-box .details ul.primary li div.topic {
   position: absolute;
   margin-left: 55px;
   padding-top: 2px;
+  max-width: 97%;
 }
 
 main .topic-wrapper .topic-box .details ul.primary li div.topic ul {
@@ -331,7 +403,7 @@ header footer mark {
   }
 }
 
-@keyframes ripple {
+@keyframes checkbox-ripple {
   0% {
     transform: scale(0);
   }
@@ -341,6 +413,12 @@ header footer mark {
   }
   100% {
     opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes element-ripple {
+  100% {
     transform: scale(1);
   }
 }
