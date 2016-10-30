@@ -1,6 +1,7 @@
 var numrand = 0;
 var navIsScrolled = false;
 var card_out = { state: false, identifier: -1 };
+var menu_out = { state: false };
 
 class seeker {
     constructor() {
@@ -42,7 +43,6 @@ class seeker {
         $('.search-result').remove();
     };
 };
-
 function dorand() {
     // Removing animation class from old animated element
     $('.topic-wrapper:nth-child(' + numrand + ') .topic-box').removeClass('calling');
@@ -55,79 +55,12 @@ function dorand() {
 
     // Recursing the function
     setTimeout(function () {
-        if (!card_out) {
+        if (!card_out.state) {
             dorand();
+        } else {
+            $('.topic-box').removeClass('calling');
         };
     }, numrand * 10 + 500);
-};
-function clear_styles(subject) {
-    // Function to clear all animated styles from the object.
-    // Setting them to '' removes them automatically.
-    $(subject).css('top', '').css('left', '').css('height', '').css('width', '').css('margin', '').css('box-shadow', '');
-};
-function animate_sweep(subject) {
-    clear_styles(subject);
-    $(subject).animate({
-        'top': window.scrollY - 31 + 'px',
-        'left': '40%',
-        'height': '96%',
-        'width': '56vw',
-    }, 700);
-    setTimeout(function () {
-        $(subject).css('box-shadow', 'inset 20px -12px 5px -12px rgba(0,0,0,0.3)');
-    }, 800);
-};
-function animate_shrink(subject) {
-    $(subject).css('box-shadow', 'none');
-    $(subject).animate({
-        'height': '170px',
-        'width': '320px',
-        'margin': '30px auto 30px auto',
-        'top': '0',
-        'left': '0',
-    }, 700);
-    setTimeout(function () {
-        clear_styles(subject);
-    }, 800);
-};
-function animate_rise(subject) {
-    $(subject).css('box-shadow', '0 1px 1px rgba(0,0,0,0.11)');
-    setTimeout(function () {
-        $(subject).css('box-shadow', '0 2px 2px rgba(0,0,0,0.12)');
-        setTimeout(function () {
-            $(subject).css('box-shadow', '0 3px 3px rgba(0,0,0,0.13)');
-            setTimeout(function () {
-                $(subject).css('box-shadow', '0 4px 4px rgba(0,0,0,0.14)');
-                setTimeout(function () {
-                    $(subject).css('box-shadow', '0 5px 5px rgba(0,0,0,0.15)');
-                    setTimeout(function () {
-                        $(subject).css('box-shadow', '0 6px 6px rgba(0,0,0,0.16)');
-                    }, 200);
-                }, 150);
-            }, 110);
-        }, 90);
-    }, 50);
-}
-function animate_fall(subject) {
-    $(subject).css('box-shadow', '0 5px 5px rgba(0,0,0,0.15)');
-    setTimeout(function () {
-        $(subject).css('box-shadow', '0 4px 4px rgba(0,0,0,0.14)');
-        setTimeout(function () {
-            $(subject).css('box-shadow', '0 3px 3px rgba(0,0,0,0.13)');
-            setTimeout(function () {
-                $(subject).css('box-shadow', '0 2px 2px rgba(0,0,0,0.12)');
-                setTimeout(function () {
-                    $(subject).css('box-shadow', '0 1px 1px rgba(0,0,0,0.11)');
-                    setTimeout(function () {
-                        $(subject).css('box-shadow', 'none');
-                    }, 200);
-                }, 160);
-            }, 140);
-        }, 100);
-    }, 50);
-}
-function feedback(container) {
-    console.log(container);
 };
 $(document).ready(function(event) {
     // Ensuring random elements animate
@@ -147,31 +80,43 @@ $(document).ready(function(event) {
     });
 
     $('#dot-menu-container').click(function(event) {
-        $('#dot-menu-container .ripple').css('top', (event.pageY - 80) - $(this).offset().top + 'px')
-                                        .css('left', (event.pageX - 80) - $(this).offset().left + 'px');
+        if (!menu_out.state) {
+            menu_out.state = true;
+            $('#dot-menu-container .ripple').css('top', (event.pageY - 80) - $(this).offset().top + 'px')
+            .css('left', (event.pageX - 80) - $(this).offset().left + 'px');
 
-        $('#dot-menu-container .ripple').addClass('active').delay(400).queue(function() {
-            $('#dot-menu-container .ripple').removeClass('active').dequeue();
-        });
-        setTimeout(function () {
-            $('#dot-menu').addClass('active');
-            $('#dot-menu-container').addClass('active');
-        }, 200);
-        $('#dot-menu li').click(function() {
-            feedback(this);
-        });
-        $('#view-pdf-link').click(function() {
-            let new_window = window.open('https://goo.gl/0QEaaa', '_blank');
-            new_window.focus();
-        });
-        /*
-
+            $('#dot-menu-container .ripple').addClass('active').delay(400).queue(function() {
+                $('#dot-menu-container .ripple').removeClass('active').dequeue();
+            });
+            setTimeout(function () {
+                $('#dot-menu').addClass('active');
+                $('#dot-menu-container').addClass('active');
+            }, 200);
+            $('#dot-menu li').click(function() {
+                feedback(this);
+            });
+            $('#view-pdf-link').click(function() {
+                let new_window = window.open('https://goo.gl/0QEaaa', '_blank');
+                new_window.focus();
+            });
+        };
+        event.stopPropagation();
         $('html').click(function() {
-        $('#dot-menu-container').removeClass('active');
-        $('#dot-menu').removeClass('active');
-    })
-        */
-    })
+            if (menu_out.state) {
+                $('#dot-menu li').css('animation', 'fadeout 20ms linear forwards 1').delay(400).queue(function() {
+                    $(this).css('animation', 'none').dequeue();
+                });
+                $('#dot-menu').css('animation', 'fadeout 300ms linear forwards 1').delay(400).queue(function() {
+                    $(this).css('animation', 'none').dequeue();
+                });
+                setTimeout(function () {
+                    menu_out.state = false;
+                    $('#dot-menu-container').removeClass('active');
+                    $('#dot-menu').removeClass('active');
+                }, 300);
+            };
+        });
+    });
 
     // Control search bar functionality mechanics
     $('#search-bar').click(function(event) {

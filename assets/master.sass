@@ -68,6 +68,7 @@ main
         z-index: 7
         list-style: none
         border-radius: 3px
+        cursor: pointer
         padding: 0
         margin: 0
         top: 5px
@@ -112,7 +113,6 @@ main
         box-shadow: 0 0 3px 3px rgba(0,0,0,0.25)
       .search-result
         cursor: pointer
-        height: calc(100% - 18px)
         width: 100%
         background-color: #ebebeb
         padding: 9px 0 9px 35px
@@ -306,3 +306,6 @@ header
 @keyframes element-ripple
   100%
     transform: scale(1)
+@keyframes fadeout
+  100%
+    opacity: 0
