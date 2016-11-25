@@ -28,8 +28,6 @@ class seeker {
             ['Req', 'Technology is incorporated into program instruction.', 2],
             ['Req', 'There is collaboration between academic and CTE teachers.', 2],
             ['Req', 'CTE courses are industry certified, have been submitted to meet high school graduation requirements, University of California a-g (UC a-g) credit, or articulated with a community college.', 2]
-
-
         ];
     };
     search(text) {
@@ -106,6 +104,9 @@ class seeker {
         $('.search-result').remove();
     };
 };
+
+
+
 var ElementContainer = React.createClass({
     spliceObject: function(obj) {
         obj = Object.keys(obj);
@@ -115,7 +116,10 @@ var ElementContainer = React.createClass({
     getInitialState: function() {
         return {
             alphabetical: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'],
-            propRefs: this.spliceObject(this.props.topic)
+            propRefs: {},
+            topics: undefined,
+            evidence: undefined,
+            latch: true
         };
     },
     cascadeData: function(subject, letter, propNumber, secondProp) {
@@ -135,11 +139,6 @@ var ElementContainer = React.createClass({
                 };
             };
         } else if (secondProp == 'no') { // Second level
-            if (letter == 'C') {
-                console.log("Here at subject: " + subject);
-                console.log("Here at: " + eval('this.props.topic.C.' + subject));
-            };
-
             for
             (let prop = 0; prop < eval('this.props.topic.' + letter + '.' + subject + '[' + propNumber + '].length'); prop++)
             {
@@ -154,7 +153,6 @@ var ElementContainer = React.createClass({
                 };
             };
         } else { // Third level
-            console.log("Got to level three!!");
             for
             (let prop = 0; prop < eval('this.props.topic.' + letter + '.' + subject + '[' + propNumber + '][' + secondProp + '].length'); prop++)
             {
@@ -167,7 +165,7 @@ var ElementContainer = React.createClass({
         };
         return output;
     },
-    listTopics: function() {
+    listTopics: function(propRefs) {
         let delimiter = (letter) => {
             if (Array.isArray(eval('this.props.topic.' + letter + '.text'))) {
                 return <ul>{this.cascadeData('text', letter, 'no', 'no')}</ul>;
@@ -176,7 +174,7 @@ var ElementContainer = React.createClass({
             };
         }.bind(this);
         let output = [];
-        for (let letter = 0; letter < this.state.propRefs.length; letter++) {
+        for (let letter = 0; letter < propRefs.length; letter++) {
              output.push(
                  <li>
                      <label>
@@ -184,23 +182,35 @@ var ElementContainer = React.createClass({
                          <i className="mdi mdi-checkbox-blank-outline mdi-24px mdi-dark unchecked"></i>
                          <i className="mdi mdi-checkbox-marked mdi-24px mdi-dark checked"></i>
                          <div className="checkbox-ripple"></div>
-                         <span>{this.state.propRefs[letter] + ". "}</span>
+                         <span>{propRefs[letter] + ". "}</span>
                      </label>
                      <div className="topic">
-                         {delimiter(this.state.propRefs[letter])}
+                         {delimiter(propRefs[letter])}
                      </div>
                  </li>
              );
         };
         return output;
     },
-    listEvidence: function() {
+    listEvidence: function(propRefs) {
         let output = [];
-        for (let prop = 0; prop < this.state.propRefs.length; prop++) {
-            output.push(<h4>{this.state.propRefs[prop] + ". Evidence"}</h4>);
-            output.push(<ul>{this.cascadeData('evidence', this.state.propRefs[prop], 'no', 'no')}</ul>);
+        for (let prop = 0; prop < propRefs.length; prop++) {
+            output.push(<h4>{propRefs[prop] + ". Evidence"}</h4>);
+            output.push(<ul>{this.cascadeData('evidence', propRefs[prop], 'no', 'no')}</ul>);
         };
         return output;
+    },
+    componentDidUpdate: function() {
+        if (this.state.latch) {
+            console.debug("ranme");
+            this.setState({
+                latch: false
+            });
+            this.setState({
+                topics: this.listTopics(this.spliceObject(this.props.topic)),
+                evidence: this.listEvidence(this.spliceObject(this.props.topic))
+            });
+        };
     },
     render: function() {
         return (
@@ -210,9 +220,9 @@ var ElementContainer = React.createClass({
                     {this.props.title}
                     <div className="details">
                         <ul className="primary">
-                            {this.listTopics()}
+                            {this.state.topics}
                         </ul><br/>
-                        {this.listEvidence()}
+                    {this.state.evidence}
                     </div>
                 </div>
             </div>
@@ -221,32 +231,22 @@ var ElementContainer = React.createClass({
 });
 
 var RenderedElements = React.createClass({
+    getInitialState: function() {
+        return {
+            e1: this.readJSON('objects/e1.json', 'e1')
+        };
+    },
+    readJSON: function(file, register) {
+        $.getJSON(file, (data) => {
+            console.debug(data);
+            eval('this.setState({' + register + ': data})');
+        }.bind(this));
+    },
     render: function() {
         return (
             <div>
                 <ElementContainer title="Leadership At All Levels"
-                    topic={{
-                        A: {
-                            text: "The CTE pathways are articulated with post-secondary and industry through programs of study, formal articulation agreements, and/or Tech Prep.",
-                            evidence: [
-                                "Tech Prep Agreements",
-                                "Articulation Agreements"
-                            ]
-                        },
-                        B: {
-                            text: "Local district administrators participate in CTE professional development regarding the benefits of CTE and the management of CTE within the larger context of educational improvement to serve all students.",
-                            evidence: [
-                                "Dates and Names of Activities"
-                            ]
-                        },
-                        C: {
-                            text: "Investment is made to provide support for CTE leadership at the local level to ensure that CTE administrators, teacher(s), and counseling and instructional leaders have sufficient time and resources to implement system improvements and work with their counterparts in other programs.",
-                            evidence: [
-                                "Dates and Names of Activtiies"
-                            ]
-                        },
-                        length: 3
-                    }}/>
+                    topic={this.state.e1}/>
                 <ElementContainer title="High-Quality Curriculum And Instruction"
                     topic={{
                         A: {
