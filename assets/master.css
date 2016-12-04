@@ -29,34 +29,34 @@
   animation: element-ripple 200ms ease-in-out 1;
 }
 
-.no_scroll {
+.noscroll {
   overflow-y: hidden;
 }
 
-html, body {
+html, body, .react-main {
   height: 100%;
   width: 100%;
   margin: 0;
   display: flex;
+  overflow-x: hidden;
 }
 
 main {
+  overflow-y: scroll;
   z-index: 4;
   width: 40%;
-  height: 2840px;
   background-color: white;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.3);
 }
 
 main nav {
   position: fixed;
-  height: 55px;
   width: 40%;
-  background-color: white;
+  background-color: #5e6896;
   border-bottom: 2px solid rgba(0, 0, 0, 0.12);
   display: flex;
-  align-items: center;
   z-index: 5;
+  transition: all ease-in-out 50ms;
 }
 
 main nav #dot-menu-container {
@@ -66,13 +66,24 @@ main nav #dot-menu-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   border-radius: 50%;
-  margin: 0 auto 0 20px;
+  font: normal lighter .95rem 'Helvetica', sans-serif;
+  margin: 5px auto 0 10px;
 }
 
-main nav #dot-menu-container.active {
-  overflow: visible;
+main nav #dot-menu-container #dot-menu-icon {
+  margin-right: 10px;
+}
+
+main nav #dot-menu-container .generic.ripple {
+  transform-origin: center;
+  transform: scale(0);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+
+main nav #dot-menu-container .generic.ripple.animating {
+  animation: ripple-normal 300ms ease-in-out 1;
 }
 
 main nav #dot-menu-container ul#dot-menu {
@@ -87,14 +98,9 @@ main nav #dot-menu-container ul#dot-menu {
   left: 5px;
   background-color: white;
   box-shadow: 0 5px 20px 3px rgba(0, 0, 0, 0.2);
-  font: normal lighter .9rem 'Helvetica', sans-serif;
   transform: scale(0);
-  transition: all ease-in-out 200ms;
+  transition: all ease-in-out 100ms;
   transform-origin: left;
-}
-
-main nav #dot-menu-container ul#dot-menu.active {
-  transform: scale(1);
 }
 
 main nav #dot-menu-container ul#dot-menu li {
@@ -113,7 +119,7 @@ main nav #dot-menu-container ul#dot-menu li i::before {
 
 main nav #search-bar {
   position: relative;
-  margin: 0 17px 0 12px;
+  margin: 8px 17px 0 12px;
   height: 37px;
   padding-left: 35px;
   width: calc(87% - 35px);
@@ -157,7 +163,33 @@ main nav #search-bar .search-result:nth-last-of-type(1) {
   border-bottom-right-radius: 8px;
 }
 
-main .topic-wrapper {
+main nav #search-filter-container {
+  position: absolute;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 40px;
+  width: calc(100% - 60px);
+  top: 50px;
+  padding: 0 0 0 60px;
+}
+
+main nav #search-filter-container .search-filter-tab {
+  height: 20px;
+  padding: 10px;
+  overflow: hidden;
+  font: normal normal 17px 'Helvetica', sans-serif;
+  color: white;
+}
+
+main nav #search-filter-container #tab-marker {
+  position: absolute;
+  top: 38px;
+  height: 2px;
+  background-color: white;
+  transition: all ease-out 250ms;
+}
+
+main .element-wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -166,14 +198,7 @@ main .topic-wrapper {
   min-height: 220px;
 }
 
-main .topic-wrapper:nth-of-type(1) {
-  padding-top: 55px;
-}
-
-main .topic-wrapper .topic-box {
-  height: 170px;
-  width: 320px;
-  margin: 30px auto 30px auto;
+main .element-wrapper .element-card {
   padding: 10px;
   border-radius: 3px;
   position: relative;
@@ -181,6 +206,7 @@ main .topic-wrapper .topic-box {
   justify-content: center;
   align-items: center;
   text-align: center;
+  top: 0;
   font: bold normal 1.5rem Arial, sans-serif;
   color: #777;
   background-color: #f7f7f7;
@@ -189,43 +215,45 @@ main .topic-wrapper .topic-box {
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.19);
 }
 
-main .topic-wrapper .topic-box .details {
+main .element-wrapper .element-card .details {
   font: normal normal 1.1rem Arial, sans-serif;
+  padding-bottom: 40px;
+  display: none;
 }
 
-main .topic-wrapper .topic-box .details ul.primary {
+main .element-wrapper .element-card .details ul.primary {
   list-style: none;
   line-height: 2;
   padding: 0;
 }
 
-main .topic-wrapper .topic-box .details ul.primary li {
+main .element-wrapper .element-card .details ul.primary li {
   display: flex;
   flex-flow: column nowrap;
   height: 90px;
 }
 
-main .topic-wrapper .topic-box .details ul.primary li.small {
+main .element-wrapper .element-card .details ul.primary li.small {
   height: 50px;
 }
 
-main .topic-wrapper .topic-box .details ul.primary li div.topic {
+main .element-wrapper .element-card .details ul.primary li div.topic {
   position: absolute;
   margin-left: 55px;
   padding-top: 2px;
   max-width: 97%;
 }
 
-main .topic-wrapper .topic-box .details ul.primary li div.topic ul {
+main .element-wrapper .element-card .details ul.primary li div.topic ul {
   list-style: disc;
   padding-left: 30px;
 }
 
-main .topic-wrapper .topic-box .details ul.primary li div.topic ul li {
+main .element-wrapper .element-card .details ul.primary li div.topic ul li {
   height: auto;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label {
+main .element-wrapper .element-card .details ul.primary label {
   position: relative;
   cursor: pointer;
   width: 50px;
@@ -234,11 +262,11 @@ main .topic-wrapper .topic-box .details ul.primary label {
   align-items: center;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label span {
+main .element-wrapper .element-card .details ul.primary label span {
   margin: -5px 0 0 10px;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label .checkbox-ripple {
+main .element-wrapper .element-card .details ul.primary label .checkbox-ripple {
   position: absolute;
   height: 40px;
   width: 40px;
@@ -250,35 +278,35 @@ main .topic-wrapper .topic-box .details ul.primary label .checkbox-ripple {
   transform-origin: center;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label .checked {
+main .element-wrapper .element-card .details ul.primary label .checked {
   display: none;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label .unchecked {
+main .element-wrapper .element-card .details ul.primary label .unchecked {
   display: block;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox'] {
+main .element-wrapper .element-card .details ul.primary label input[type='checkbox'] {
   display: none;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox']:checked + .unchecked {
+main .element-wrapper .element-card .details ul.primary label input[type='checkbox']:checked + .unchecked {
   display: none;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox']:checked + .unchecked + .checked {
+main .element-wrapper .element-card .details ul.primary label input[type='checkbox']:checked + .unchecked + .checked {
   display: block;
 }
 
-main .topic-wrapper .topic-box .details ul.primary label input[type='checkbox']:checked + .unchecked + .checked + .checkbox-ripple {
-  animation-name: ripple;
+main .element-wrapper .element-card .details ul.primary label input[type='checkbox']:checked + .unchecked + .checked + .checkbox-ripple {
+  animation-name: checkbox-ripple;
   animation-duration: 350ms;
   animation-fill-mode: none;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
 }
 
-main .topic-wrapper .topic-box button {
+main .element-wrapper .element-card button {
   padding: 8px 12px 8px 12px;
   transform: rotateX(90deg);
   perspective: -500px;
@@ -296,21 +324,7 @@ main .topic-wrapper .topic-box button {
   background-color: #982222;
 }
 
-main .topic-wrapper .topic-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 12px -3px rgba(0, 0, 0, 0.16);
-}
-
-main .topic-wrapper .topic-box .details {
-  display: none;
-}
-
-main .topic-wrapper .topic-box.calling {
-  transform: translateY(-6px);
-  box-shadow: 0 9px 10px 3px rgba(0, 0, 0, 0.13);
-}
-
-main .topic-wrapper .topic-box.active {
+main .element-wrapper .element-card.active {
   overflow-y: auto;
   display: block;
   padding: 2%;
@@ -318,15 +332,15 @@ main .topic-wrapper .topic-box.active {
   position: absolute;
 }
 
-main .topic-wrapper .topic-box.active .details {
+main .element-wrapper .element-card.active .details {
   display: block;
 }
 
-main .topic-wrapper .topic-box.active:hover {
+main .element-wrapper .element-card.active:hover {
   transform: none;
 }
 
-main .topic-wrapper .topic-box.active > button {
+main .element-wrapper .element-card.active > button {
   animation-name: flip;
   animation-duration: 300ms;
   animation-fill-mode: forwards;
@@ -335,7 +349,7 @@ main .topic-wrapper .topic-box.active > button {
   animation-iteration-count: 1;
 }
 
-main .topic-wrapper .topic-box.reset {
+main .element-wrapper .element-card.inactive {
   overflow-y: hidden;
   display: flex;
   justify-content: center;
@@ -343,15 +357,15 @@ main .topic-wrapper .topic-box.reset {
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.19);
 }
 
-main .topic-wrapper .topic-box.reset .details {
+main .element-wrapper .element-card.inactive .details {
   display: none;
 }
 
-main .topic-wrapper .topic-box.reset > button {
+main .element-wrapper .element-card.inactive > button {
   animation: none;
 }
 
-main .topic-wrapper span {
+main .element-wrapper span {
   letter-spacing: 1px;
   margin: auto auto auto 30px;
   font: normal normal 1rem Arial, sans-serif;
@@ -369,7 +383,7 @@ header {
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  background-image: url("file:images/edu.jpg");
+  background-image: url("images/edu.jpg");
   background-size: cover;
   background-position: center;
   font: normal normal 1.2rem Arial, sans-serif;
@@ -426,5 +440,18 @@ header footer mark {
 @keyframes fadeout {
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes ripple-normal {
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  header {
+    margin-left: 0%;
   }
 }

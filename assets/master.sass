@@ -27,30 +27,30 @@ $search-bar-border: rgba(0,0,0,0.3)
   transform-origin: center
   &.active
     animation: element-ripple 200ms ease-in-out 1
-.no_scroll
+.noscroll
   // This class exists because overriding the equivalent property
   // in JavaScript was problematic
   overflow-y: hidden
-html, body
+html, body, .react-main
   height: 100%
   width: 100%
   margin: 0
   display: flex
+  overflow-x: hidden
 main
+  overflow-y: scroll
   z-index: 4
   width: 40%
-  height: 2840px
   background-color: white
   box-shadow: 5px 0 5px rgba(0,0,0,0.3)
   nav
     position: fixed
-    height: 55px
     width: 40%
-    background-color: white
+    background-color: #5e6896
     border-bottom: 2px solid rgba(0,0,0,0.12)
     display: flex
-    align-items: center
     z-index: 5
+    transition: all ease-in-out 50ms
     #dot-menu-container
       position: relative
       height: 45px
@@ -58,11 +58,18 @@ main
       display: flex
       align-items: center
       justify-content: center
-      overflow: hidden
       border-radius: 50%
-      margin: 0 auto 0 20px
-      &.active
-        overflow: visible
+      font: normal lighter .95rem 'Helvetica', sans-serif
+      margin: 5px auto 0 10px
+      #dot-menu-icon
+        margin-right: 10px
+      .generic.ripple
+        transform-origin: center
+        transform: scale(0)
+        background-color: rgba(255,255,255,0.5)
+        border-radius: 50%
+        &.animating
+          animation: ripple-normal 300ms ease-in-out 1
       ul#dot-menu
         position: absolute
         z-index: 7
@@ -75,12 +82,9 @@ main
         left: 5px
         background-color: white
         box-shadow: 0 5px 20px 3px rgba(0,0,0,0.2)
-        font: normal lighter .9rem 'Helvetica', sans-serif
         transform: scale(0)
-        transition: all ease-in-out 200ms
+        transition: all ease-in-out 100ms
         transform-origin: left
-        &.active
-          transform: scale(1)
         li
           padding: 10px 7px 10px 7px
           min-width: 170px
@@ -91,7 +95,7 @@ main
               transform: translateY(4px)
     #search-bar
       position: relative
-      margin: 0 17px 0 12px
+      margin: 8px 17px 0 12px
       height: 37px
       padding-left: 35px
       width: calc(87% - 35px)
@@ -123,19 +127,34 @@ main
         &:nth-last-of-type(1)
           border-bottom-left-radius: 8px
           border-bottom-right-radius: 8px
-  .topic-wrapper
+    #search-filter-container
+      position: absolute
+      display: flex
+      flex-flow: row nowrap
+      height: 40px
+      width: calc(100% - 60px)
+      top: 50px
+      padding: 0 0 0 60px
+      .search-filter-tab
+        height: 20px
+        padding: 10px
+        overflow: hidden
+        font: normal normal 17px 'Helvetica', sans-serif
+        color: white
+      #tab-marker
+        position: absolute
+        top: 38px
+        height: 2px
+        background-color: white
+        transition: all ease-out 250ms
+  .element-wrapper
     display: flex
     align-items: center
     justify-content: flex-start
     align-content: flex-start
     min-width: 100%
     min-height: 220px
-    &:nth-of-type(1)
-      padding-top: 55px
-    .topic-box
-      height: 170px
-      width: 320px
-      margin: 30px auto 30px auto
+    .element-card
       padding: 10px
       border-radius: 3px
       position: relative
@@ -143,6 +162,7 @@ main
       justify-content: center
       align-items: center
       text-align: center
+      top: 0
       font: bold normal 1.5rem Arial, sans-serif
       color: #777
       background-color: darken(white, 3)
@@ -151,6 +171,8 @@ main
       box-shadow: 0 3px 6px 1px rgba(0,0,0,0.19)
       .details
         @include standard-font(1.1rem)
+        padding-bottom: 40px
+        display: none
         ul.primary
           list-style: none
           line-height: 2
@@ -201,7 +223,7 @@ main
                 + .checked
                   display: block
                   + .checkbox-ripple
-                    animation-name: ripple
+                    animation-name: checkbox-ripple
                     animation-duration: 350ms
                     animation-fill-mode: none
                     animation-timing-function: ease-in-out
@@ -222,14 +244,6 @@ main
         color: white
         box-shadow: 0 0 3px 4px rgba(0,0,0,0.12)
         background-color: mix(darken(red, 30), brown, 20)
-      &:hover
-        transform: translateY(-5px)
-        box-shadow: 0 12px 12px -3px rgba(0,0,0,0.16)
-      .details
-        display: none
-      &.calling
-        transform: translateY(-6px)
-        box-shadow: 0 9px 10px 3px rgba(0,0,0,0.13)
       &.active
         overflow-y: auto
         display: block
@@ -247,7 +261,7 @@ main
           animation-delay: 1.6s
           animation-timing-function: ease-in-out
           animation-iteration-count: 1
-      &.reset
+      &.inactive
         overflow-y: hidden
         display: flex
         justify-content: center
@@ -273,7 +287,7 @@ header
   flex-wrap: wrap
   flex-direction: column
   align-items: center
-  background-image: url('file:images/edu.jpg')
+  background-image: url('images/edu.jpg')
   background-size: cover
   background-position: center
   @include standard-font(1.2rem)
@@ -309,3 +323,11 @@ header
 @keyframes fadeout
   100%
     opacity: 0
+@keyframes ripple-normal
+  100%
+    transform: scale(1)
+    opacity: 0
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
+  header
+    margin-left: 0%
