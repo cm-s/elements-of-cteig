@@ -80,8 +80,8 @@ var NavBar = React.createClass({
             results: undefined
         };
     },
-    search: function(event) {
-        if (event.target.value.length > 3) {
+    filterResults: function(query, length) {
+        if (length > 3) {
             let matches = [];
             // Expanding the navbar and performing proper initial adjustments if not already done
             if (this.state.navbarHeight == 55) {
@@ -97,14 +97,27 @@ var NavBar = React.createClass({
             switch (this.state.selectedTab) {
                 case 'elementsTab':
                     this.state.elements.forEach((element) => {
-                        if (eval('this.state.variables.e' + element + '.title').indexOf(event.target.value) !== -1) {
+                        if (eval('this.state.variables.e' + element + '.title').indexOf(query) !== -1) {
                             console.debug("Found it");
                             matches.push('e' + element);
                         };
                     }.bind(this));
                     break;
                 case 'topicsTab':
-                    console.debug("searching topics");
+                    break;
+                    this.state.elements.forEach((element) => {
+                        let propRefs = Object.keys(eval('this.state.variables.e' + element + '.topic'));
+                        propRefs.splice(propRefs.length - 1, 1);
+                        propRefs.forEach((ref) => {
+                            if (Array.isArray(eval('this.state.variables.e' + element + '.topic.' + ref + '.text'))) {
+
+                            } else {
+                                if (eval('this.state.variables.e' + element + '.topic.' + ref + '.text').indexOf(query) !== -1) {
+                                    matches.push('e' + element);
+                                };
+                            };
+                        }.bind(this));
+                    }.bind(this));
                     break;
                 case 'evidenceTab':
                     console.debug("searching evidence");
@@ -112,13 +125,17 @@ var NavBar = React.createClass({
             };
             this.props.whitelist(this.state.selectedTab, matches);
         };
-        if (event.target.value.length == 0) {
+        if (length == 0) {
             this.setState({
                 navbarHeight: 55,
                 tabDisplay: 'none'
             });
             this.props.offsetStack(55);
+            this.props.whitelist(null, []);
         };
+    },
+    search: function(event) {
+        this.filterResults(event.target.value, event.target.value.length);
     },
     toggleMenu: function() {
         if (this.state.menuState == 'visible') {
@@ -167,34 +184,44 @@ var NavBar = React.createClass({
             });
         };
     },
-    filterResults: function(event) {
+    reselect: function(event) {
         if (event.target.id != this.state.selectedTab) {
             switch (event.target.id) {
                 case 'elementsTab':
+                    console.debug("set to elementsTab");
                     this.setState({
                         selectedTab: 'elementsTab',
                         tabWidth: parseInt($(this.refs.elementsTab).css('width'), 10) + 20,
                         tabAlignment: $(this.refs.elementsTab).offset().left
                     });
+                    setTimeout(function () {
+                        this.filterResults($(this.refs.searchField).val(), $(this.refs.searchField).val().length);
+                    }.bind(this), 100);
                     break;
                 case 'topicsTab':
+                    console.debug("set to topicsTab");
                     this.setState({
                         selectedTab: 'topicsTab',
                         tabWidth: parseInt($(this.refs.topicsTab).css('width'), 10) + 20,
                         tabAlignment: $(this.refs.topicsTab).offset().left
                     });
-                    this.search()
+                    setTimeout(function () {
+                        this.filterResults($(this.refs.searchField).val(), $(this.refs.searchField).val().length);
+                    }.bind(this), 100);
                     break;
                 case 'evidenceTab':
+                    console.debug("set to evidenceTab");
                     this.setState({
                         selectedTab: 'evidenceTab',
                         tabWidth: parseInt($(this.refs.evidenceTab).css('width'), 10) + 20,
                         tabAlignment: $(this.refs.evidenceTab).offset().left
                     });
+                    setTimeout(function () {
+                        this.filterResults($(this.refs.searchField).val(), $(this.refs.searchField).val().length);
+                    }.bind(this), 100);
                     break;
             };
         };
-        this.props.whitelist();
     },
     permitHover: function() {
         this.setState({
@@ -241,6 +268,7 @@ var NavBar = React.createClass({
                     <input type="search"
                         name="searchbar"
                         placeholder="Enter query, more than three characters"
+                        ref="searchField"
                         id="search-field"
                         autoComplete="off"
                         onChange={this.search} />
@@ -255,19 +283,19 @@ var NavBar = React.createClass({
                     <span className="search-filter-tab"
                         ref="elementsTab"
                         id="elementsTab"
-                        onClick={this.filterResults}>
+                        onClick={this.reselect}>
                         Elements
                     </span>
                     <span className="search-filter-tab"
                         ref="topicsTab"
                         id="topicsTab"
-                        onClick={this.filterResults}>
+                        onClick={this.reselect}>
                         Topics
                     </span>
                     <span className="search-filter-tab"
                         ref="evidenceTab"
                         id="evidenceTab"
-                        onClick={this.filterResults}>
+                        onClick={this.reselect}>
                         Evidence
                     </span>
                 </div>
@@ -443,6 +471,14 @@ var ElementContainer = React.createClass({
             this.setState({ display: 'none' });
         }.bind(this), 300);
     },
+    fadeIn: function() {
+        this.setState({
+            opacity: 1
+        });
+        setTimeout(function () {
+            this.setState({ display: 'flex' });
+        }.bind(this), 300);
+    },
     render: function() {
         return (
             <div className="element-wrapper"
@@ -549,6 +585,20 @@ var RenderedElements = React.createClass({
         });
     },
     whitelist: function(filter, matches) {
+        if (!filter) {
+            this.dislodgeAll();
+            this.state.elements.forEach((element) => {
+                eval('this.refs.e' + element + '.fadeIn()');
+            }.bind(this));
+            return false;
+        };
+        if (matches.length <= 0) {
+            this.dislodgeAll();
+            this.state.elements.forEach((element) => {
+                eval('this.refs.e' + element + '.fadeOut()');
+            }.bind(this));
+            return false;
+        };
         switch (filter) {
             case 'elementsTab':
                 console.debug("rendering elements");
@@ -558,6 +608,9 @@ var RenderedElements = React.createClass({
                 blacklist.forEach((element) => {
                     eval('this.refs.' + element + '.fadeOut()');
                 }.bind(this));
+                matches.forEach((match) => {
+                    eval('this.refs.' + match + '.fadeIn()');
+                }.bind(this));
                 break;
             case 'topicsTab':
                 console.debug("rendering topics");
@@ -566,6 +619,7 @@ var RenderedElements = React.createClass({
                 console.debug("rendering evidence");
                 break;
         };
+        return true;
     },
     render: function() {
         return (
