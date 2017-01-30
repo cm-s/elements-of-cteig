@@ -1,0 +1,24 @@
+{
+    "A": {
+        "text": "A Program of Study, with a post-secondary institution, has been developed.",
+        "evidence": [
+            "Industry Sector/Career Pathway Identified",
+            "Articulation, UC A-G, Technical School Sequence"
+        ]
+    },
+    "B": {
+        "text": "Sufficient time is provided for faculty to build cross-segmental and cross-disciplinary collaborations aimed at aligning curricula and programs, as well as models, tools, and professional development to facilitate pathway development.",
+        "evidence": [
+            "Meeting Dates for Collaboration Time with Others in Identified Sequence",
+            "Documents Identifying Sequence"
+        ]
+    },
+    "C": {
+        "text": "Each CTE program sequence will include at least one district-funded CTE course in the industry sector.",
+        "evidence": [
+            "Local CTE Plan",
+            "Fiscal Records"
+        ]
+    },
+    "length": 3
+}

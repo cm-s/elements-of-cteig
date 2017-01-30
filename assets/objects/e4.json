@@ -1,0 +1,53 @@
+{
+    "A": {
+        "text": "An official Career Technical Student Organization (CTSO) has been chartered (or in application process) by the State Association.",
+        "evidence": [
+            "CTSO Document",
+            "Agenda/Minutes/Sign-In Sheets"
+        ]
+    },
+    "B": {
+        "text": "A local CTSO work plan is developed annually and a copy is furnished to local administration.",
+        "evidence": [
+            "CTSO Work Plan"
+        ]
+    },
+    "C": {
+        "text": "Leadership activities are embedded in the CTE curriculum.",
+        "evidence": [
+            "List of Leadership Activities",
+            [
+                "Lesson Plans",
+                "Curriculum"
+            ],
+            "Percentage of Students Participating",
+            "Evidence of Student Achievement",
+            "List of Student Organization Involvement In Community or School Related Activities"
+        ]
+    },
+    "D": {
+        "text": "All students enrolled in CTSO's are affiliated with the State Association.",
+        "evidence": [
+            "Local CTSO Roster"
+        ]
+    },
+    "E": {
+        "text": "Program meets the needs of special population students (including special education, english learners, non-traditional students, and the general student population).",
+        "evidence": [
+            "Student Completion Rates",
+            "Student Placement Results",
+            "Catalog of Support Services",
+            "Retention Rates",
+            "Mentors, Role-Models, Etc"
+        ]
+    },
+    "F": {
+        "text": "Students are made aware of non-traditional CTE offerings and pathways that lead to high skill, high wage, or high demand careers.",
+        "evidence": [
+            "Promotional Materials",
+            "Sudent Placement Results",
+            "Counseling Materials"
+        ]
+    },
+    "length": 6
+}

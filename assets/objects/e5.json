@@ -1,0 +1,48 @@
+{
+    "A": {
+        "text": "The Local CTE Advisory Committee is operational and reflects the committee membership as outlined in the California Education Code §8070 and meets at least once a year.",
+        "evidence": [
+            "List of Advisory",
+            [
+                "Members",
+                "Titles",
+                "Industry"
+            ],
+            "List of Educators",
+            "Aganda/Minutes/Sign-In",
+            "E-mails"
+        ]
+    },
+    "B": {
+        "text": "Business/industry is involved in student learning activities.",
+        "evidence": [
+            "List of Activities",
+            [
+                "Job Shadowing",
+                "Speakers"
+            ],
+            "Percent of Industry Participation"
+        ]
+    },
+    "C": {
+        "text": "Business/industry is involved in the development and validation of the curriculum.",
+        "evidence": [
+            "List of Advisory Members and Industries",
+            "Agenda/Meeting/Minutes/Sign-In Sheets"
+        ]
+    },
+    "D": {
+        "text": "Labor market demand has been documented for the Program.",
+        "evidence": [
+            "Labor Market Projections"
+        ]
+    },
+    "E": {
+        "text": "There are industry certification standards and certificates for students who achieve industry recognized skill and knowledge requirements.",
+        "evidence": [
+            "Copy of Certification Standards",
+            "Percentage of Students Receiving Certification"
+        ]
+    },
+    "length": 5
+}

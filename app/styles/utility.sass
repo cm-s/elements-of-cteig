@@ -1,0 +1,52 @@
+@import "../vendor/mdi/materialdesignicons.css"
+
+//material design dark according to guidelines: http://goo.gl/vkRHaV
+@mixin standard-font($size)
+  font: normal normal $size Arial, sans-serif
+
+$search-bar-border: rgba(0,0,0,0.3)
+
+.ripple
+  height: 160px
+  width: 160px
+  position: absolute
+  border-radius: 50%
+  background-color: transparentize(#888, .5)
+  transform: scale(0)
+  transform-origin: center
+  &.active
+    animation: element-ripple 200ms ease-in-out 1
+.noscroll
+  // This class exists because overriding the equivalent property
+  // in JavaScript was problematic
+  overflow-y: hidden
+@keyframes flip
+  75%
+    transform: rotateX(-30deg)
+  82%
+    transform: rotateX(-30deg)
+  100%
+    transform: rotateX(0)
+@keyframes checkbox-ripple
+  0%
+    transform: scale(0)
+  70%
+    opacity: .6
+    transform: scale(1)
+  100%
+    opacity: 0
+    transform: scale(1)
+@keyframes element-ripple
+  100%
+    transform: scale(1)
+@keyframes fadeout
+  100%
+    opacity: 0
+@keyframes ripple-normal
+  100%
+    transform: scale(1)
+    opacity: 0
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
+  header
+    margin-left: 0%

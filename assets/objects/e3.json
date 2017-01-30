@@ -1,0 +1,24 @@
+{
+    "A": {
+        "text": [
+            "Students are counseled regarding:",
+            [
+                "CTE career opportunities.",
+                "CTE and academic courses necessary to complete career pathway offerings.",
+                "Post-secondary education and training options."
+            ],
+        ],
+        "evidence": [
+            "List of Activities",
+            "List of Career Path Information Sent to Parents, Counselors and Students"
+        ]
+    },
+    "B": {
+        "text": "All students have a completed a four year career plan that is updated annually.",
+        "evidence": [
+            "Lesson Plans",
+            "Example of Student Four Year Plan"
+        ]
+    },
+    "length": 2
+}

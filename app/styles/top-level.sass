@@ -1,0 +1,140 @@
+
+html, body, .react-main
+  height: 100%
+  width: 100%
+  margin: 0
+  display: flex
+  overflow-x: hidden
+main
+  overflow-y: scroll
+  z-index: 4
+  width: 40%
+  background-color: white
+  box-shadow: 5px 0 5px rgba(0,0,0,0.3)
+  nav
+    position: fixed
+    width: 40%
+    background-color: #5e6896
+    border-bottom: 2px solid rgba(0,0,0,0.12)
+    display: flex
+    z-index: 5
+    transition: all ease-in-out 50ms
+    #dot-menu-container
+      position: relative
+      height: 45px
+      width: 45px
+      display: flex
+      align-items: center
+      justify-content: center
+      border-radius: 50%
+      font: normal lighter .95rem 'Helvetica', sans-serif
+      margin: 5px auto 0 10px
+      #dot-menu-icon
+        margin-right: 10px
+      .generic.ripple
+        transform-origin: center
+        transform: scale(0)
+        background-color: rgba(255,255,255,0.5)
+        border-radius: 50%
+        &.animating
+          animation: ripple-normal 300ms ease-in-out 1
+      ul#dot-menu
+        position: absolute
+        z-index: 7
+        list-style: none
+        border-radius: 3px
+        cursor: pointer
+        padding: 0
+        margin: 0
+        top: 5px
+        left: 5px
+        background-color: white
+        box-shadow: 0 5px 20px 3px rgba(0,0,0,0.2)
+        transform: scale(0)
+        transition: all ease-in-out 100ms
+        transform-origin: left
+        li
+          padding: 10px 7px 10px 7px
+          min-width: 170px
+          i
+            transform: translateY(5px)
+            margin: auto 10px auto 5px
+            &::before
+              transform: translateY(4px)
+    #search-bar
+      position: relative
+      margin: 8px 17px 0 12px
+      height: 37px
+      padding-left: 35px
+      width: calc(87% - 35px)
+      background-color: #ebebeb
+      border-radius: 8px
+      transition: all ease-in-out 200ms
+      i
+        margin: 7px auto auto -27px
+        position: absolute
+      input
+        width: 98%
+        height: 90%
+        margin-top: 2px
+        background-color: transparent
+        border: none
+        outline: none
+        box-shadow: none
+      &.active
+        box-shadow: 0 0 3px 3px rgba(0,0,0,0.25)
+    #search-filter-container
+      position: absolute
+      display: flex
+      flex-flow: row nowrap
+      height: 40px
+      width: calc(100% - 60px)
+      top: 50px
+      padding: 0 0 0 60px
+      .search-filter-tab
+        height: 20px
+        padding: 10px
+        overflow: hidden
+        font: normal normal 17px 'Helvetica', sans-serif
+        color: white
+      #tab-marker
+        position: absolute
+        top: 38px
+        height: 2px
+        background-color: white
+        transition: all ease-out 250ms
+  .element-wrapper
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    align-content: flex-start
+    min-width: 100%
+    min-height: 220px
+
+header
+  color: white
+  z-index: 1
+  position: fixed
+  height: 100%
+  width: 60%
+  margin-left: 40%
+  text-align: center
+  display: flex
+  justify-content: center
+  flex-wrap: wrap
+  flex-direction: column
+  align-items: center
+  background-image: url('images/5.png')
+  background-size: cover
+  background-position: center
+  @include standard-font(1.2rem)
+  #title-divider
+    width: 400px
+    height: 1px
+    background-color: transparentize(white, .5)
+  footer
+    @include standard-font(.9rem)
+    color: #888
+    mark
+      background-color: transparent
+      @include standard-font(1.1rem)

@@ -1,0 +1,27 @@
+{
+    "A": {
+        "text": "Every CTE teacher has the appropriate credential for teaching the subject(s) assigned as well as documented employment experience outside of education in the program area taught.",
+        "evidence": [
+            "Approved by Local Credential offices"
+        ]
+    },
+    "B": {
+        "text": "Based on the previous year’s records, every CTE teacher, teaching at least half time CTE, attends a minimum of four professional development activities.",
+        "evidence": [
+            "List of Teacher Technical Development Activities Such as Staff Exchange, Technical Conferences, Industry Certification Training, Etc."
+        ]
+    },
+    "C": {
+        "text": "The CTE staff meets a minimum of twice a month. (This criteria does not apply to single person departments - mark column N/A = Not Applicable.)",
+        "evidence": [
+            "Staff Meeting Minutes"
+        ]
+    },
+    "D": {
+        "text": "A written record of minutes of action taken during CTE staff meetings is kept in Department files.",
+        "evidence": [
+            "Staff Meeting Minutes"
+        ]
+    },
+    "length": 4
+}
