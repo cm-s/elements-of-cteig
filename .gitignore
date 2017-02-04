@@ -1,2 +1,3 @@
-# Ignore a configuration file
-/*.ftpconfig
+# Ignore compiled scripts and styles
+dist/*.js
+dist/*.css
