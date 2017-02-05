@@ -51,8 +51,8 @@ export default class Binder extends React.Component {
       eval('component.setState({ ' + register + ': data });');
     });
   }
-  propagateSig(state) {
-    this.setState({ scrollable: state })
+  propagateSig(state, traceref) {
+    traceref.setState({ scrollable: state })
   }
   propagateClick(event) {
     this.refs.navbar.invoke(event);
@@ -60,10 +60,10 @@ export default class Binder extends React.Component {
   propagateScroll(event) {
     this.refs.navbar.updateZheight($(event.target).scrollTop());
   }
-  dislodgeAll() {
-    this.state.elements.forEach((index) => {
-      if (eval('this.refs.e' + index +'.state.currentState') == 'active') {
-        eval('this.refs.e' + index + '.retractCard()');
+  dislodgeAll(traceref) {
+    traceref.state.elements.forEach((index) => {
+      if (eval('traceref.refs.e' + index +'.state.currentState') == 'active') {
+        eval('traceref.refs.e' + index + '.retractCard()');
       };
     });
   }
@@ -110,7 +110,7 @@ export default class Binder extends React.Component {
   render() {
     return (
       <div className={this.state.scrollable + ' react-main'}
-        onClick={this.propagateClick}>
+        onClick={this.propagateClick.bind(this)}>
         <main onScroll={this.propagateScroll}>
           <NavBar ref="navbar"
             getElementData={this.getElementData}
@@ -121,12 +121,14 @@ export default class Binder extends React.Component {
             dislodgeAll={this.dislodgeAll}
             title="Leadership At All Levels"
             topic={this.state.e1}
-            offset={this.state.stackOffset}/>
+            offset={this.state.stackOffset}
+            that={this}/>
           <ElementContainer ref="e2"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="High-Quality Curriculum And Instruction"
-            topic={this.state.e2}/>
+            topic={this.state.e2}
+            that={this}/>
           <ElementContainer ref="e3"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
@@ -154,47 +156,56 @@ export default class Binder extends React.Component {
                 ]
               },
               length: 2
-            }}/>
+            }}
+            that={this}/>
           <ElementContainer ref="e4"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="Student Support and Student Leadership Development"
-            topic={this.state.e4}/>
+            topic={this.state.e4}
+            that={this}/>
           <ElementContainer ref="e5"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="Industry Partnerships"
-            topic={this.state.e5}/>
+            topic={this.state.e5}
+            that={this}/>
           <ElementContainer ref="e6"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="System Alignment and Coherence"
-            topic={this.state.e6}/>
+            topic={this.state.e6}
+            that={this}/>
           <ElementContainer ref="e7"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="Effective Organizational Design"
-            topic={this.state.e7}/>
+            topic={this.state.e7}
+            that={this}/>
           <ElementContainer ref="e8"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="System Responsiveness to Changing Economic Demands"
-            topic={this.state.e8}/>
+            topic={this.state.e8}
+            that={this}/>
           <ElementContainer ref="e9"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="Skilled Faculty and Professional Development"
-            topic={this.state.e9}/>
+            topic={this.state.e9}
+            that={this}/>
           <ElementContainer ref="e10"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="Evaluation, Accountability, and Continuous Improvement"
-            topic={this.state.e10}/>
+            topic={this.state.e10}
+            that={this}/>
           <ElementContainer ref="e11"
             propagateSig={this.propagateSig}
             dislodgeAll={this.dislodgeAll}
             title="CTE Promotion, Outreach, Marketing, and Communication"
-            topic={this.state.e11}/>
+            topic={this.state.e11}
+            that={this}/>
         </main>
         <header>
           <p id="header">

@@ -22,15 +22,14 @@ export default class ElementContainer extends React.Component {
   }
   spliceObject(obj) {
     obj = Object.keys(obj);
-    console.debug(obj);
-    let iterator = 0;
-    for (let aspect of obj) {
-      console.debug(aspect);
-      if (aspect.length >= 1)
-      obj.splice(iterator, 1);
-      iterator++;
+    let iter = 0;
+    while (iter != obj.length) {
+      if (obj[iter].length > 1) {
+        obj.splice(iter, 1);
+        iter--;
+      }
+      iter++;
     };
-    console.debug(obj);
     return obj;
   }
   cascadeData(subject, letter, propNumber, secondProp) {
@@ -43,7 +42,7 @@ export default class ElementContainer extends React.Component {
           output.push(<ul>{this.cascadeData(subject, letter, prop, 'no')}</ul>);
         } else {
           output.push(
-            <li>
+            <li key={new Date().getTime() + Math.random(0, 100)}>
               {eval('this.props.topic.' + letter + '.' + subject + '[' + prop + ']')}
             </li>
           );
@@ -57,7 +56,7 @@ export default class ElementContainer extends React.Component {
           output.push(<ul>{this.cascadeData(subject, letter, propNumber, prop)}</ul>)
         } else {
           output.push(
-            <li>
+            <li key={new Date().getTime() + Math.random(0, 100)}>
               {eval('this.props.topic.' + letter + '.' + subject + '[' + propNumber + '][' + prop + ']')}
             </li>
           );
@@ -68,7 +67,7 @@ export default class ElementContainer extends React.Component {
       (let prop = 0; prop < eval('this.props.topic.' + letter + '.' + subject + '[' + propNumber + '][' + secondProp + '].length'); prop++)
       {
         output.push(
-          <li>
+          <li key={new Date().getTime() + Math.random(0, 100)}>
             {eval('this.props.topic.' + letter + '.' + subject + '[' + propNumber + '][' + secondProp + '][' + prop + ']')}
           </li>
         );
@@ -80,7 +79,9 @@ export default class ElementContainer extends React.Component {
     let self = this;
     let delimiter = (letter) => {
       if (Array.isArray(eval('self.props.topic.' + letter + '.text'))) {
-        return <ul>{self.cascadeData('text', letter, 'no', 'no')}</ul>;
+        return <ul key={new Date().getTime() + Math.random(0, 3)}> // Needs a unique key
+          {self.cascadeData('text', letter, 'no', 'no')}
+        </ul>;
       } else {
         return eval('self.props.topic.' + letter + '.text');
       };
@@ -105,10 +106,11 @@ export default class ElementContainer extends React.Component {
     return output;
   }
   listEvidence(propRefs) {
+    console.debug(propRefs);
     let output = [];
     for (let prop = 0; prop < propRefs.length; prop++) {
-      output.push(<h4 key=''>{propRefs[prop] + ". Evidence"}</h4>);
-      output.push(<ul>{this.cascadeData('evidence', propRefs[prop], 'no', 'no')}</ul>);
+      output.push(<h4 key={eval('this.props.topic.' + propRefs[prop] + '.key1')}>{propRefs[prop] + ". Evidence"}</h4>);
+      output.push(<ul key={eval('this.props.topic.' + propRefs[prop] + '.key2')}>{this.cascadeData('evidence', propRefs[prop], 'no', 'no')}</ul>);
     };
     return output;
   }
@@ -126,7 +128,7 @@ export default class ElementContainer extends React.Component {
     };
   }
   retractCard() {
-  if (this.state.currentState == 'active') {
+    if (this.state.currentState == 'active') {
       this.setState({
         currentState: 'inactive',
         height: '170px',
@@ -136,12 +138,12 @@ export default class ElementContainer extends React.Component {
         boxShadow: '0 3px 6px 1px rgba(0,0,0,0.19)',
         display: 'flex'
       });
-      this.props.propagateSig('scroll');
+      this.props.propagateSig('scroll', this.props.that);
     };
   }
-  expandCard() {
+  expandCard() { // Always called by this element
     if (this.state.currentState == 'inactive') {
-      this.props.dislodgeAll();
+      this.props.dislodgeAll(this.props.that);
       this.setState({
         currentState: 'active',
         left: '40%',
@@ -151,7 +153,7 @@ export default class ElementContainer extends React.Component {
         boxShadow: 'inset 5px 0 5px rgba(0,0,0,0.3)',
         display: 'block'
       });
-      this.props.propagateSig('noscroll');
+      this.props.propagateSig('noscroll', this.props.that);
     };
   }
   permitHover() {
@@ -190,9 +192,9 @@ export default class ElementContainer extends React.Component {
           display: this.state.display
         }}>
         <div className={'element-card ' + this.state.currentState}
-          onClick={this.expandCard}
-          onMouseEnter={this.permitHover}
-          onMouseLeave={this.negateHover}
+          onClick={this.expandCard.bind(this)}
+          onMouseEnter={this.permitHover.bind(this)}
+          onMouseLeave={this.negateHover.bind(this)}
           style={{
             height: this.state.height,
             width: this.state.width,
@@ -204,7 +206,7 @@ export default class ElementContainer extends React.Component {
             display: this.state.display
           }}>
           <button name="close"
-            onClick={this.retractCard}>Close</button>
+            onClick={this.retractCard.bind(this)}>Close</button>
           {this.props.title}
           <div className="details">
             <ul className="primary">
