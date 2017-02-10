@@ -200,8 +200,8 @@ export default class NavBar extends React.Component {
           </ul>
         </div>
         <div id="search-bar"
-          onFocus={this.permitHover}
-          onBlur={this.negateHover}
+          onFocus={this.permitHover.bind(this)}
+          onBlur={this.negateHover.bind(this)}
           style={{ boxShadow: this.state.searchShadow }}>
           <i className="mdi mdi-magnify mdi-24px mdi-dark"></i>
           <input type="search"
@@ -210,7 +210,7 @@ export default class NavBar extends React.Component {
             ref="searchField"
             id="search-field"
             autoComplete="off"
-            onChange={this.search} />
+            onChange={this.search.bind(this)} />
         </div>
         <div id="search-filter-container"
           style={{ display: this.state.tabDisplay }}>
@@ -222,19 +222,19 @@ export default class NavBar extends React.Component {
           <span className="search-filter-tab"
             ref="elementsTab"
             id="elementsTab"
-            onClick={this.reselect}>
+            onClick={this.reselect.bind(this)}>
             Elements
           </span>
           <span className="search-filter-tab"
             ref="topicsTab"
             id="topicsTab"
-            onClick={this.reselect}>
+            onClick={this.reselect.bind(this)}>
             Topics
           </span>
           <span className="search-filter-tab"
             ref="evidenceTab"
             id="evidenceTab"
-            onClick={this.reselect}>
+            onClick={this.reselect.bind(this)}>
             Evidence
           </span>
         </div>

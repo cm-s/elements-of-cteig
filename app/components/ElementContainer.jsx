@@ -20,6 +20,12 @@ export default class ElementContainer extends React.Component {
       opacity: 1
     };
   }
+  /*
+   * Seperates topic object properties into a filtered list, to later be
+   * traversed for expected data constructs. (lists, sentances, lists of lists)
+   *
+   * @param obj; The object that will be subject to filtration.
+   */
   spliceObject(obj) {
     obj = Object.keys(obj);
     let iter = 0;
@@ -32,6 +38,22 @@ export default class ElementContainer extends React.Component {
     };
     return obj;
   }
+  /*
+   * Primary algorithm that processes the individual data from each specified
+   * property of a given object (subject).
+   * This algoritm generates html elements, being either lists or list items, that
+   * contain the content of a given aspect, topic, or subtopic (most specifically signified
+   * by the 'letter' parameter) of the given object.
+   * Note: Though this algoritm is recursive, it only recurses as a part of it's own
+   * operation. As implied; Only calls itself within it's own scope.
+   *
+   * @param subject; The base object to be operated upon.
+   * @param letter; Literally the letter, naming the property of the subject to be traversed.
+   * @param propNumber; Parameter used exclusively for conditions of recursion. Names the property
+   * number to be scanned next
+   * @param secondProp; Used nearly synonymously with propNumber. The key difference being that
+   * this param represents a deeper level of recursion
+   */
   cascadeData(subject, letter, propNumber, secondProp) {
     let output = [];
     if (propNumber == 'no' && secondProp == 'no') { // First level
@@ -109,6 +131,7 @@ export default class ElementContainer extends React.Component {
     console.debug(propRefs);
     let output = [];
     for (let prop = 0; prop < propRefs.length; prop++) {
+      console.debug('Intager key: ' + parseInt(eval('this.props.topic.' + propRefs[prop] + '.key1'), 16));
       output.push(<h4 key={eval('this.props.topic.' + propRefs[prop] + '.key1')}>{propRefs[prop] + ". Evidence"}</h4>);
       output.push(<ul key={eval('this.props.topic.' + propRefs[prop] + '.key2')}>{this.cascadeData('evidence', propRefs[prop], 'no', 'no')}</ul>);
     };
