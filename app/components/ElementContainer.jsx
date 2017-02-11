@@ -21,6 +21,8 @@ export default class ElementContainer extends React.Component {
     };
   }
   /*
+   * spliceObject
+   *
    * Seperates topic object properties into a filtered list, to later be
    * traversed for expected data constructs. (lists, sentances, lists of lists)
    *
@@ -39,6 +41,8 @@ export default class ElementContainer extends React.Component {
     return obj;
   }
   /*
+   * cascadeData
+   *
    * Primary algorithm that processes the individual data from each specified
    * property of a given object (subject).
    * This algoritm generates html elements, being either lists or list items, that
@@ -52,7 +56,7 @@ export default class ElementContainer extends React.Component {
    * @param propNumber; Parameter used exclusively for conditions of recursion. Names the property
    * number to be scanned next
    * @param secondProp; Used nearly synonymously with propNumber. The key difference being that
-   * this param represents a deeper level of recursion
+   * this param represents a deeper level of nesting.
    */
   cascadeData(subject, letter, propNumber, secondProp) {
     let output = [];
@@ -97,6 +101,16 @@ export default class ElementContainer extends React.Component {
     };
     return output;
   }
+  /*
+   * listTopics
+   *
+   * Generates generic wrapper and scaffolding elements for the topic assigned to this component
+   * and prompts the generation (calls 'cascadeData') of element data based on the specified
+   * references (propRefs).
+   *
+   * @param propRefs; An array of letters to be used as the source of input data for functions of
+   * this and other methods within the class.
+   */
   listTopics(propRefs) {
     let self = this;
     let delimiter = (letter) => {
@@ -127,6 +141,17 @@ export default class ElementContainer extends React.Component {
     };
     return output;
   }
+  /*
+   * listEvidence
+   *
+   * Generates a header and <ul> containing respective data from the object assigned to this component.
+   * Like above, one of this method's primary purposes is to populate an unordered list with data from
+   * the object assigned to the parent component. In other words, calls the 'cascadeData' method with
+   * the 'evidence' aspects targeted.
+   *
+   * @param propRefs; An array of letters to be used as the source of input data for functions of
+   * this and other methods within the class.
+   */
   listEvidence(propRefs) {
     console.debug(propRefs);
     let output = [];
