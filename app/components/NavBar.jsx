@@ -1,7 +1,10 @@
 import React from 'react';
 import $ from 'jquery'
+import { autobind } from 'core-decorators';
+
 import Responder from './Responder.jsx';
 
+@autobind
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -200,8 +203,8 @@ export default class NavBar extends React.Component {
           </ul>
         </div>
         <div id="search-bar"
-          onFocus={this.permitHover.bind(this)}
-          onBlur={this.negateHover.bind(this)}
+          onFocus={this.permitHover}
+          onBlur={this.negateHover}
           style={{ boxShadow: this.state.searchShadow }}>
           <i className="mdi mdi-magnify mdi-24px mdi-dark"></i>
           <input type="search"
@@ -210,7 +213,7 @@ export default class NavBar extends React.Component {
             ref="searchField"
             id="search-field"
             autoComplete="off"
-            onChange={this.search.bind(this)} />
+            onChange={this.search} />
         </div>
         <div id="search-filter-container"
           style={{ display: this.state.tabDisplay }}>
@@ -222,19 +225,19 @@ export default class NavBar extends React.Component {
           <span className="search-filter-tab"
             ref="elementsTab"
             id="elementsTab"
-            onClick={this.reselect.bind(this)}>
+            onClick={this.reselect}>
             Elements
           </span>
           <span className="search-filter-tab"
             ref="topicsTab"
             id="topicsTab"
-            onClick={this.reselect.bind(this)}>
+            onClick={this.reselect}>
             Topics
           </span>
           <span className="search-filter-tab"
             ref="evidenceTab"
             id="evidenceTab"
-            onClick={this.reselect.bind(this)}>
+            onClick={this.reselect}>
             Evidence
           </span>
         </div>

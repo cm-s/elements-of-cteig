@@ -1,6 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
+import { autobind } from 'core-decorators';
 
+@autobind
 export default class Responder extends React.Component {
   constructor(props) {
     super(props);

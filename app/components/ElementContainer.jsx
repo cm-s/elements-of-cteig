@@ -1,6 +1,8 @@
 import React from 'react';
+import { autobind } from 'core-decorators';
 
-export default class ElementContainer extends React.Component {
+@autobind
+class ElementContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -153,10 +155,8 @@ export default class ElementContainer extends React.Component {
    * this and other methods within the class.
    */
   listEvidence(propRefs) {
-    console.debug(propRefs);
     let output = [];
     for (let prop = 0; prop < propRefs.length; prop++) {
-      console.debug('Intager key: ' + parseInt(eval('this.props.topic.' + propRefs[prop] + '.key1'), 16));
       output.push(<h4 key={eval('this.props.topic.' + propRefs[prop] + '.key1')}>{propRefs[prop] + ". Evidence"}</h4>);
       output.push(<ul key={eval('this.props.topic.' + propRefs[prop] + '.key2')}>{this.cascadeData('evidence', propRefs[prop], 'no', 'no')}</ul>);
     };
@@ -241,8 +241,8 @@ export default class ElementContainer extends React.Component {
         }}>
         <div className={'element-card ' + this.state.currentState}
           onClick={this.expandCard.bind(this)}
-          onMouseEnter={this.permitHover.bind(this)}
-          onMouseLeave={this.negateHover.bind(this)}
+          onMouseEnter={this.permitHover}
+          onMouseLeave={this.negateHover}
           style={{
             height: this.state.height,
             width: this.state.width,
@@ -267,3 +267,5 @@ export default class ElementContainer extends React.Component {
     );
   }
 }
+
+export default ElementContainer;

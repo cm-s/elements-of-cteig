@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import { autobind } from 'core-decorators';
+
 import NavBar from './app/components/NavBar.jsx';
 import ElementContainer from './app/components/ElementContainer.jsx';
 
+@autobind
 export default class Binder extends React.Component {
   constructor(props) {
     super(props);
@@ -24,10 +27,11 @@ export default class Binder extends React.Component {
     };
   }
   getElementData() {
+    let self = this;
     let packageData = (target) => {
       return {
-        title: eval('this.refs.' + target + '.props.title'),
-        topic: eval('this.refs.' + target + '.props.topic')
+        title: eval('self.refs.' + target + '.props.title'),
+        topic: eval('self.refs.' + target + '.props.topic')
       };
     };
     return {
@@ -110,7 +114,7 @@ export default class Binder extends React.Component {
   render() {
     return (
       <div className={this.state.scrollable + ' react-main'}
-        onClick={this.propagateClick.bind(this)}>
+        onClick={this.propagateClick}>
         <main onScroll={this.propagateScroll}>
           <NavBar ref="navbar"
             getElementData={this.getElementData}
